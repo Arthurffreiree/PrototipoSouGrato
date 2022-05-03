@@ -155,42 +155,37 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                                 for l in ronda_csv:
                                     print(ronda_csv[l])
                                 continuar = input("\nPressione enter para continuar...")
-                            
-                        
-                        
-                        
-                        
-                        ''' # Contagem de voluntários
-                            elif opcao == 1:
-                                open('DadosSGEspec.csv')
-                                open('DadosSGRonda.csv')
-                                voluntariosTotal = (len('DadosSGEspec.csv'.readlines-1)+len('DadosSGRonda.csv'.readlines-1))
-                                print(f"Há {voluntariosTotal} voluntários cadastrados no momento.")
-                                continuar = input("\nPressione enter para continuar...")
-                                os.system("cls")
+                            # Contagem de voluntários
+                        elif opcao == 1:
+                            open('DadosSGEspec.csv')
+                            open('DadosSGRonda.csv')
+                            voluntariosTotal = (len('DadosSGEspec.csv'.readlines-1)+len('DadosSGRonda.csv'.readlines-1))
+                            print(f"Há {voluntariosTotal} voluntários cadastrados no momento.")
+                            continuar = input("\nPressione enter para continuar...")
+                            os.system("cls")
                             # Total de doações
                         elif opcao == 2:
-                                print("O total de doações no momento é:\nR${VALOR}\nXXX fatias de queijo\nXXX fatias de mortadela...")
-                #Essa parte teria um contador externo linkado a uma conta da organização
-                #Ainda não sei fazer então vou deixar assim
-                                continuar = input("\nPressione enter para continuar...")
-                                os.system("cls")
+                            print("O total de doações no momento é:\nR${VALOR}\nXXX fatias de queijo\nXXX fatias de mortadela...")
+                            #Essa parte teria um contador externo linkado a uma conta da organização
+                            #Ainda não sei fazer então vou deixar assim
+                            continuar = input("\nPressione enter para continuar...")
+                            os.system("cls")
                             # Consulta dos arquivos .csv
                         elif opcao == 3:
-                                with open('DadosSGRonda.csv', 'r') as bancoR:
-                                    ronda = csv.reader(bancoR, delimiter=',')
-                                    print("Dados dos Voluntário de Ronda:")
-                                    for l in bancoR:
-                                        Nome =  l.split(',')[0]
-                                        Num = l.split(',')[2]
-                                        print(f"{Nome} ; {Num}")
-                                    with open('DadosSGEspec.csv', 'r') as bancoE:
-                                        espec = csv.reader(bancoE, delimiter=',')
-                                        print("\nDados dos Voluntários Especializados:")
-                                        for l in bancoE:   
-                                            nome = l.split(',')[0]
-                                            num = l.split(',')[2]  
-                                            print(f"{nome} ; {num}")
-                                        continuar = input("\nPressione enter para continuar...")
-                                        os.system("cls")'''
+                            with open('DadosSGRonda.csv', 'r') as bancoR:
+                                ronda = csv.reader(bancoR, delimiter=',')
+                                print("Dados dos Voluntário de Ronda:")
+                                for l in bancoR:
+                                    Nome =  l.split(',')[0]
+                                    Num = l.split(',')[2]
+                                    print(f"{Nome} ; {Num}")
+                                with open('DadosSGEspec.csv', 'r') as bancoE:
+                                    espec = csv.reader(bancoE, delimiter=',')
+                                    print("\nDados dos Voluntários Especializados:")
+                                    for l in bancoE:   
+                                        nome = l.split(',')[0]
+                                        num = l.split(',')[2]  
+                                        print(f"{nome} ; {num}")
+                                    continuar = input("\nPressione enter para continuar...")
+                                    os.system("cls")
                     
