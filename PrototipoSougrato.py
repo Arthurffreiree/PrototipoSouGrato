@@ -149,12 +149,6 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                         if opcao == 0:
                                 reset = 1
                                 i = 0
-                        if opcao == 1:
-                            with open('DadosSGRonda.csv', 'r') as dados:
-                                ronda_csv = csv.reader(dados)
-                                for l in ronda_csv:
-                                    print(ronda_csv[l])
-                                continuar = input("\nPressione enter para continuar...")
                             # Contagem de voluntários
                         elif opcao == 1:
                             open('DadosSGEspec.csv')
@@ -179,13 +173,13 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                                     Nome =  l.split(',')[0]
                                     Num = l.split(',')[2]
                                     print(f"{Nome} ; {Num}")
-                                with open('DadosSGEspec.csv', 'r') as bancoE:
-                                    espec = csv.reader(bancoE, delimiter=',')
-                                    print("\nDados dos Voluntários Especializados:")
-                                    for l in bancoE:   
-                                        nome = l.split(',')[0]
-                                        num = l.split(',')[2]  
-                                        print(f"{nome} ; {num}")
-                                    continuar = input("\nPressione enter para continuar...")
-                                    os.system("cls")
+                            with open('DadosSGEspec.csv', 'r') as bancoE:
+                                espec = csv.reader(bancoE, delimiter=',')
+                                print("\nDados dos Voluntários Especializados:")
+                                for l in bancoE:   
+                                    nome = l.split(',')[0]
+                                    num = l.split(',')[2]  
+                                    print(f"{nome} ; {num}")
+                            continuar = input("\nPressione enter para continuar...")
+                            os.system("cls")
                     
