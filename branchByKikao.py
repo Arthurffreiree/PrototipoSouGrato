@@ -155,11 +155,17 @@ iniciativas e instituições sociais para assistir comunidades em situações em
     #/\/\/\Tentei fazer ele ir direto do login/cadastro pra tela da doação, mas ele volta pro menu 
     #\/\/\/ tá bugado, dá uma conferida
                         if logado == True:
+                            os.system("cls")
                             print("pix ou cartao aqui")
                             d == False
+                            continuar = input("\nPressione enter para continuar...")
+                            os.system('cls')
                     elif freqDoacao == 2:
+                        os.system("cls")
                         print("pix ou cartão aqui")
                         d == False
+                        continuar = input("\nPressione enter para continuar...")
+                        os.system('cls')
     # Tela de login
     if escolha_inicio == 2 and logado == False:
         os.system('cls')
