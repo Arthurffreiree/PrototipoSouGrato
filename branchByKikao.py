@@ -154,16 +154,16 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                                 b = False
     #/\/\/\Tentei fazer ele ir direto do login/cadastro pra tela da doação, mas ele volta pro menu 
     #\/\/\/ tá bugado, dá uma conferida
-                        if logado == True:
+                        elif logado == True:
                             os.system("cls")
                             print("pix ou cartao aqui")
-                            d == False
+                            d = False
                             continuar = input("\nPressione enter para continuar...")
                             os.system('cls')
                     elif freqDoacao == 2:
                         os.system("cls")
                         print("pix ou cartão aqui")
-                        d == False
+                        d = False
                         continuar = input("\nPressione enter para continuar...")
                         os.system('cls')
     # Tela de login
@@ -180,7 +180,6 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     if login not in contasADM:
                         print('Login inválido!')
                         continuar = input("\nPressione enter para continuar...")
-                        'DadosADM.csv'.close()
                         os.system('cls')
                         escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                         if escolha_voltar == 2:
