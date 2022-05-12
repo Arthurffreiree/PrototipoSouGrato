@@ -3,6 +3,8 @@ import os
 def limpa():
     os.system('cls')
 
+'''Mudar para "not logado" e apenas "logado" '''
+
 # Função para chamar a escrita dos dados
 def escreverDados(DadosSougrato, Dados):
     with open(DadosSougrato, 'a') as texto:
@@ -107,13 +109,13 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                         d = False
                     elif freqDoacao == 1:
                         limpa()
-                        if logado == False:
+                        if not logado:
                             escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
                             if escolha_login == 0:
                                 limpa()
                                 d = False
                             elif escolha_login == 1:
-                                while b == True:
+                                while b:
                                     limpa()
                                     with open('DadosADM.csv', 'r') as adm:
                                         dadosADM = csv.reader(adm)
