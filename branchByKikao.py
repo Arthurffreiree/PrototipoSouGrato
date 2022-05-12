@@ -103,7 +103,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                 print("Com que frenquência você deseja doar?")
                 freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
                 d = True
-                while d == True:
+                while d:
                     if freqDoacao == 0:
                         limpa()
                         d = False
@@ -145,15 +145,16 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                                 while b == True:
                                     cadastro = []
                                     limpa()
-                                    cadastro_usuario = input('Digite o login desejado: ')
+                                    
 #dar uma olhada nessa parte do usuario da cadastrado
 #nao ta funcionando
                                     with open('DadosADM.csv', 'r') as adm:
-                                        cadRead = csv.reader(adm, delimiter=',')
-                                        contasADM ={l[0]:l[1] for l in cadRead}                    
-                                        if cadastro_usuario in (contasADM(l[0]) for l in cadRead):
+                                        dadosADM = csv.reader(adm, delimiter = ',')
+                                        contasADM = {l[0]:l[1] for l in dadosADM}
+                                        a = input('Digite seu login: ')
+                                        if a in contasADM:
                                             limpa()
-                                            print('Usuário já cadastrado!')
+                                            print('Login já existente!')
                                             escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                                             if escolha_voltar == 2:
                                                 b = False
