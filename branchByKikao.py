@@ -3,8 +3,6 @@ import os
 def limpa():
     os.system('cls')
 
-'''Mudar para "not logado" e apenas "logado" '''
-
 # Função para chamar a escrita dos dados
 def escreverDados(DadosSougrato, Dados):
     with open(DadosSougrato, 'a') as texto:
@@ -30,7 +28,7 @@ escolha_menu = 0
 
 # Listas/Dicionários
 contasADM = {}
-
+cadastro = []
 # Variáveis para contagem
 contRonda = 0
 contEspec = 0
@@ -103,19 +101,20 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                 print("Com que frenquência você deseja doar?")
                 freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
                 d = True
-                while d:
+                while d == True:
                     if freqDoacao == 0:
                         limpa()
                         d = False
                     elif freqDoacao == 1:
                         limpa()
-                        if not logado:
+                        if logado == False:
                             escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
+                            b=True
                             if escolha_login == 0:
                                 limpa()
                                 d = False
                             elif escolha_login == 1:
-                                while b:
+                                while b == True:
                                     limpa()
                                     with open('DadosADM.csv', 'r') as adm:
                                         dadosADM = csv.reader(adm)
@@ -143,22 +142,19 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                                                 b = False
                             elif escolha_login == 2:
                                 while b == True:
-                                    cadastro = []
                                     limpa()
-                                    
 #dar uma olhada nessa parte do usuario da cadastrado
 #nao ta funcionando
                                     with open('DadosADM.csv', 'r') as adm:
-                                        dadosADM = csv.reader(adm, delimiter = ',')
+                                        dadosADM = csv.reader(adm)
                                         contasADM = {l[0]:l[1] for l in dadosADM}
-                                        a = input('Digite seu login: ')
-                                        if a in contasADM:
+                                        cadastro_usuario = input('Digite seu login: ')
+                                        if cadastro_usuario in contasADM:
                                             limpa()
                                             print('Login já existente!')
-                                            escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                                            if escolha_voltar == 2:
-                                                b = False
-                                                limpa()
+                                            continuar = input("\nPressione enter para continuar...")
+                                            b = False
+                                            limpa()
                                         else:
                                             cadastro_senha = input('Digite a senha desejada: ')
                                             cadastro.append(cadastro_usuario)
