@@ -1,52 +1,24 @@
 import csv
 import os
-def limpa():
-    os.system('cls')
+from PROTOmod import *
 
-# Função para chamar a escrita dos dados
-def escreverDados(DadosSougrato, Dados):
-    with open(DadosSougrato, 'a') as texto:
-        banco = ','.join(Dados)
-        texto.writelines(banco+'\n')
-
-def cadastroADM(DadosADM, contas):
-    with open(DadosADM, 'a') as texto:
-        banco = ','.join(contas)
-        texto.writelines(banco+'\n')
-# Variáveis para ciclos
-a = True
-b = True
-c = True
-d = True
-# Verificações
-logado = False
-
-# Variáveis para escolhas
-escolha_inicio = 0
-escolha_login = 0
-escolha_menu = 0
-
-# Listas/Dicionários
-contasADM = {}
-cadastro = []
 # Variáveis para contagem
 contRonda = 0
 contEspec = 0
 
-#Tela inicial
-
+#Tela Inicial
 while a == True:
-    if logado == False:
+    if logged == False:
         limpa()
-        escolha_inicio = int(input('[1] - Acessar o menu \t [2] - Login/Cadastro \n'))
+        escolha_main = int(input('[1] - Acessar o menu \t [2] - Login/Cadastro \n'))
         b = True
         c = True
-    if logado == True:
+    if logged == True:
         limpa()
-        escolha_inicio = int(input('[1] - Acessar o menu \t [2] - Acessar seu perfil \t [3] - Logout\n'))
+        escolha_main = int(input('[1] - Acessar o menu \t [2] - Acessar seu perfil \t [3] - Logout\n'))
         c = True
     # Menu
-    if escolha_inicio == 1:
+    if escolha_main == 1:
         while c == True:
             limpa()
             escolha_menu = int(input('[0] - Voltar \n[1] - Quem somos \n[2] - Seja voluntário \n[3] - Seja doador \n'))
@@ -60,7 +32,7 @@ ajudar pessoas em situação de rua e famílias em vulnerabilidade. Atualmente, 
 semanalmente no município de Recife-PE, no qual são distribuídos alimentos, água, ração para cães e gatos, 
 kits de higiene pessoal, roupas e cobertores. Outros tipos de ações também são realizadas em parceria com outras 
 iniciativas e instituições sociais para assistir comunidades em situações emergenciais.''')
-                continuar = input("\nPressione enter para continuar...")
+                proceed = input("\nPressione enter para continuar...")
                 limpa()
             elif escolha_menu == 2:
                 limpa()
@@ -78,7 +50,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     dadosRonda.append(input("Digite o nome do seu contato de emergência: "))
                     dadosRonda.append(input("Digite o número de telefone do seu contato de emergência: "))
                     limpa()
-                    continuar = input("Pressione enter para continuar...")
+                    proceed = input("Pressione enter para continuar...")
                     escreverDados('DadosSGRonda.csv', dadosRonda)
                     contRonda+=1
                     limpa()
@@ -92,7 +64,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     dadosEspec.append(input("Insira sua área de interesse: "))
                     dadosEspec.append(input("Alguma proposta?\n"))
                     limpa()
-                    continuar = input("Pressione enter para continuar...")
+                    proceed = input("Pressione enter para continuar...")
                     escreverDados('DadosSGEspec.csv', dadosEspec)
                     contEspec+=1
                     limpa()
@@ -107,7 +79,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                         d = False
                     elif freqDoacao == 1:
                         limpa()
-                        if logado == False:
+                        if logged == False:
                             escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
                             b=True
                             if escolha_login == 0:
@@ -116,68 +88,27 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                             elif escolha_login == 1:
                                 while b == True:
                                     limpa()
-                                    with open('DadosADM.csv', 'r') as adm:
-                                        dadosADM = csv.reader(adm)
-                                        contasADM = {l[0]:l[1] for l in dadosADM}
-                                        login = input('Digite seu login: ')
-                                        if login not in contasADM:
-                                            print('Login inválido!')
-                                            limpa()
-                                            escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                                            if escolha_voltar == 2:
-                                                b = False
-                                                limpa()
-                                        else:
-                                            senha = input('Digite sua senha: ')
-                                            if contasADM[login] != senha:
-                                                print('Senha inválida!')
-                                                continuar = input("\nPressione enter para continuar...")
-                                                limpa()
-                                                escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                                                if escolha_voltar == 2:
-                                                    b = False
-                                                    limpa()
-                                            else:
-                                                logado = True
-                                                b = False
+                                    loginReader('DadosADM.csv', contasADM)
+                                    Login(contasADM)
                             elif escolha_login == 2:
                                 while b == True:
                                     limpa()
-#dar uma olhada nessa parte do usuario da cadastrado
-#nao ta funcionando
-                                    with open('DadosADM.csv', 'r') as adm:
-                                        dadosADM = csv.reader(adm)
-                                        contasADM = {l[0]:l[1] for l in dadosADM}
-                                        cadastro_usuario = input('Digite seu login: ')
-                                        if cadastro_usuario in contasADM:
-                                            limpa()
-                                            print('Login já existente!')
-                                            continuar = input("\nPressione enter para continuar...")
-                                            b = False
-                                            limpa()
-                                        else:
-                                            cadastro_senha = input('Digite a senha desejada: ')
-                                            cadastro.append(cadastro_usuario)
-                                            cadastro.append(cadastro_senha)
-                                            cadastroADM('DadosADM.csv', cadastro)
-                                            limpa()
-                                            logado = True
-                                            b = False
-    #/\/\/\Tentei fazer ele ir direto do login/cadastro pra tela da doação, mas ele volta pro menu 
-                        elif logado == True:
+                                    loginReader('DadosADM.csv', contasADM)
+                                    Cadastro(contasADM)
+                        elif logged == True:
                             limpa()
                             print("pix ou cartao aqui")
                             d = False
-                            continuar = input("\nPressione enter para continuar...")
+                            proceed = input("\nPressione enter para continuar...")
                             limpa()
                     elif freqDoacao == 2:
                         limpa()
                         print("pix ou cartão aqui")
-                        continuar = input("\nPressione enter para continuar...")
+                        proceed = input("\nPressione enter para continuar...")
                         d = False
                         limpa()
     # Tela de login
-    if escolha_inicio == 2 and logado == False:
+    if escolha_main == 2 and logged == False:
         limpa()
         escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
         if escolha_login == 0:
@@ -192,24 +123,24 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     login = input('Digite seu login: ')
                     if login not in contasADM:
                         print('Login inválido!')
-                        continuar = input("\nPressione enter para continuar...")
+                        proceed = input("\nPressione enter para continuar...")
                         limpa()
-                        escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                        if escolha_voltar == 2:
+                        escolha_back = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
+                        if escolha_back == 2:
                             b = False
                             limpa()
                     else:
                         senha = input('Digite sua senha: ')
                         if contasADM[login] != senha:
                             print('Senha inválida!')
-                            continuar = input("\nPressione enter para continuar...")
+                            proceed = input("\nPressione enter para continuar...")
                             limpa()
-                            escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                            if escolha_voltar == 2:
+                            escolha_back = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
+                            if escolha_back == 2:
                                 b = False
                                 limpa()
                         else:
-                            logado = True
+                            logged = True
                             b = False
         elif escolha_login == 2:
             while b == True:
@@ -219,7 +150,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                 if cadastro_usuario in contasADM:
                     limpa()
                     print('Usuário já cadastrado!')
-                    continuar = input("\nPressione enter para continuar...")
+                    proceed = input("\nPressione enter para continuar...")
                     limpa()
                     escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                     if escolha_voltar == 2:
@@ -231,7 +162,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     cadastro.append(cadastro_senha)
                     cadastroADM('DadosADM.csv', cadastro)
                     limpa()
-                    logado = True
+                    logged = True
                     b = False
-    elif escolha_inicio == 3:
-        logado = False
+    elif escolha_main == 3:
+        logged = False
