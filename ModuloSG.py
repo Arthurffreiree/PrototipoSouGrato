@@ -1,19 +1,18 @@
 #Imports
 import csv
 import os
-from tkinter import Menu
 
 #Listas, Dicionários
 contasADM={}
 cadastro = []
 dadosCadastro = []
+
 #Variáveis Globais
 global proceed
 global a
 global b
 global c
 global d
-global e
 global logged
 
 #Valores das Globais
@@ -29,6 +28,7 @@ escolha_main = 0
 escolha_login = 0
 escolha_menu = 0
 escolha_back = 10
+
 #Limpar Terminal
 def limpa():
     os.system('cls')
@@ -39,41 +39,48 @@ def escreverDados(nomeArquivo, nomeLista):
         esc = ','.join(nomeLista)
         adm.writelines(esc+'\n')
         
-#Verificar se Login Existe
-def loginReader(nomeArquivo, nomeDic):
-     with open(nomeArquivo,'r') as adm:
+#Tela de Login
+def Login(nomeArquivo, nomeDic):
+    global b
+    global proceed
+    global logged
+#fica voltando pra esse if
+#checar depois
+    while b == True:
+            with open(nomeArquivo,'r') as adm:
+                leitor = csv.reader(adm)
+                nomeDic = {l[0]:l[1] for l in leitor}
+                user = input('Digite o email de login: ')
+                if user not in nomeDic:
+                    limpa()
+                    print('Login inválido')                    
+                    escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
+                    if escolha_voltar == 2:
+                        b = False
+                        limpa()
+                else:
+                    senha = input('Digite sua senha: ')
+                    if nomeDic[user] != senha:          
+                        print('Senha inválida!')                    
+                        escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
+                        if escolha_voltar == 2:
+                            b = False
+                            limpa()
+                    else:
+                        logged = True
+                        b = False
+                        limpa()
+                        proceed = input('''Login feito com sucesso!
+pressione enter para continuar...''') 
+#Tela de Cadastro
+def Cadastro(nomeArquivo, nomeDic):
+    global b
+    global e
+    global proceed
+    global logged
+    with open(nomeArquivo,'r') as adm:
         leitor = csv.reader(adm)
         nomeDic = {l[0]:l[1] for l in leitor}
-        
-#Tela de Login
-def Login(nomeDic):
-        loginReader('DadosADM.csv', contasADM)
-        user = input('Digite o email de login: ')
-        if user not in nomeDic:
-            print('Login inválido')
-            limpa()
-            escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-            if escolha_voltar == 2:
-                b = False
-                limpa()
-        else:
-            senha = input('Digite sua senha: ')
-            if nomeDic[user] != senha:          
-                print('Senha inválida!')
-                proceed = input("\nPressione enter para continuar...")
-                limpa()
-                escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                if escolha_voltar == 2:
-                    b = False
-                    limpa()
-            else:
-                logged = True
-                b = False
-                limpa()        
-                    
-#Tela de Cadastro
-def Cadastro(nomeDic):
-    loginReader('DadosADM.csv',contasADM)
     user = input('Insira o email para login: ')
     if user in nomeDic:
         limpa()
@@ -84,7 +91,8 @@ def Cadastro(nomeDic):
     else:
         nome = input('Digite seu nome: ')
         cpf = input('Digite seu CPF: ')
-        cadastro.append(nome)
+        cadastro.append(user)
+        dadosCadastro.append(user)
         dadosCadastro.append(nome)
         dadosCadastro.append(cpf)
         while e==True:
@@ -96,9 +104,11 @@ def Cadastro(nomeDic):
                 e = False
             else:
                 limpa()
-                procd = input('''As senhas não correspondem.
+                proceed = input('''As senhas não correspondem.
 Pressione enter para continuar...''')
         limpa()
-        escreverDados('DadosADM', cadastro)
-        escreverDados('DadosCadastro.csv',dadosCadastro)    
+        escreverDados('DadosADM.csv', cadastro)
+        escreverDados('DadosCadastro.csv',dadosCadastro)
+        b=False
+        logged = True    
         
