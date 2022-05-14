@@ -1,10 +1,4 @@
-import csv
-import os
 from PROTOmod import *
-
-# Variáveis para contagem
-contRonda = 0
-contEspec = 0
 
 #Tela Inicial
 while a == True:
@@ -17,7 +11,7 @@ while a == True:
         limpa()
         escolha_main = int(input('[1] - Acessar o menu \t [2] - Acessar seu perfil \t [3] - Logout\n'))
         c = True
-    # Menu
+# Menu
     if escolha_main == 1:
         while c == True:
             limpa()
@@ -52,7 +46,6 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     limpa()
                     proceed = input("Pressione enter para continuar...")
                     escreverDados('DadosSGRonda.csv', dadosRonda)
-                    contRonda+=1
                     limpa()
                 elif vol == 2:
                     dadosEspec = []
@@ -66,7 +59,6 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     limpa()
                     proceed = input("Pressione enter para continuar...")
                     escreverDados('DadosSGEspec.csv', dadosEspec)
-                    contEspec+=1
                     limpa()
             elif escolha_menu==3:
                 limpa()
@@ -79,27 +71,28 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                         d = False
                     elif freqDoacao == 1:
                         limpa()
-                        if logged == False:
-                            escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
-                            b=True
-                            if escolha_login == 0:
-                                limpa()
-                                d = False
-                            elif escolha_login == 1:
-                                while b == True:
+                        while b == True:
+                            if logged == False:
+                                escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
+                                if escolha_login == 0:
                                     limpa()
-                                    loginReader('DadosADM.csv', contasADM)
-                                    Login(contasADM)
-                            elif escolha_login == 2:
-                                while b == True:
-                                    limpa()
-                                    loginReader('DadosADM.csv', contasADM)
-                                    Cadastro(contasADM)
-                        elif logged == True:
+                                    d = False
+                                elif escolha_login == 1:
+                                    while b == True:
+                                        limpa()                            
+                                        Login('DadosADM.csv',contasADM)
+                                        b=False
+                                elif escolha_login == 2:
+                                    while b == True:
+                                        limpa()
+                                        Cadastro('DadosADM.csv',contasADM)
+                                        b=False
+#nao passa daqui \\ conferir
+                        if logged == True:
                             limpa()
                             print("pix ou cartao aqui")
-                            d = False
                             proceed = input("\nPressione enter para continuar...")
+                            d = False
                             limpa()
                     elif freqDoacao == 2:
                         limpa()
@@ -160,7 +153,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                     cadastro_senha = input('Digite a senha desejada: ')
                     cadastro.append(cadastro_usuario)
                     cadastro.append(cadastro_senha)
-                    cadastroADM('DadosADM.csv', cadastro)
+                    Cadastro('DadosADM.csv', cadastro)
                     limpa()
                     logged = True
                     b = False
