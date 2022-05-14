@@ -29,77 +29,94 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                 proceed = input("\nPressione enter para continuar...")
                 limpa()
             elif escolha_menu == 2:
+                f = True
                 limpa()
-                print("Qual tipo de voluntário você deseja ser?")
-                vol = int(input("[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n"))
-                limpa()
-                if vol == 0:
+                while f:
+                    b = True
+                    print("Qual tipo de voluntário você deseja ser?")
+                    vol = int(input("[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n"))
                     limpa()
-                    c = False
-                elif vol == 1:
-                    dadosRonda = []
-                    dadosRonda.append(input("Digite seu nome: "))
-                    dadosRonda.append(input("Digite seu email: "))
-                    dadosRonda.append(input("Digite o seu número de telefone: "))
-                    dadosRonda.append(input("Digite o nome do seu contato de emergência: "))
-                    dadosRonda.append(input("Digite o número de telefone do seu contato de emergência: "))
-                    limpa()
-                    proceed = input("Pressione enter para continuar...")
-                    escreverDados('DadosSGRonda.csv', dadosRonda)
-                    limpa()
-                elif vol == 2:
-                    dadosEspec = []
-                    dadosEspec.append(input("Digite seu nome: "))
-                    dadosEspec.append(input("Digite seu email: "))
-                    dadosEspec.append(input("Digite o seu número de telefone: "))
-                    limpa()
-                    dadosEspec.append(input("Insira o seu grau de escolaridade: "))
-                    dadosEspec.append(input("Insira sua área de interesse: "))
-                    dadosEspec.append(input("Alguma proposta?\n"))
-                    limpa()
-                    proceed = input("Pressione enter para continuar...")
-                    escreverDados('DadosSGEspec.csv', dadosEspec)
-                    limpa()
-            elif escolha_menu==3:
-                limpa()
-                print("Com que frenquência você deseja doar?")
-                freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
-                d = True
-                while d == True:
-                    if freqDoacao == 0:
-                        limpa()
-                        d = False
-                    elif freqDoacao == 1:
-                        limpa()
-                        while b == True:
-                            if logged == False:
-                                escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
-                                if escolha_login == 0:
-                                    limpa()
-                                    d = False
-                                elif escolha_login == 1:
-                                    while b == True:
-                                        limpa()                            
-                                        Login('DadosADM.csv',contasADM)
-                                        b=False
-                                elif escolha_login == 2:
-                                    while b == True:
-                                        limpa()
-                                        Cadastro('DadosADM.csv',contasADM)
-                                        b=False
-#nao passa daqui \\ conferir
-                        if logged == True:
+                    while b:
+                        if vol == 0:
                             limpa()
-                            print("pix ou cartao aqui")
+                            b = False
+                            f = False
+                        elif vol == 1:
+                            dadosRonda = []
+                            dadosRonda.append(input("Digite seu nome: "))
+                            dadosRonda.append(input("Digite seu email: "))
+                            dadosRonda.append(input("Digite o seu número de telefone: "))
+                            dadosRonda.append(input("Digite o nome do seu contato de emergência: "))
+                            dadosRonda.append(input("Digite o número de telefone do seu contato de emergência: "))
+                            limpa()
+                            proceed = input("Pressione enter para continuar...")
+                            escreverDados('DadosSGRonda.csv', dadosRonda)
+                            limpa()
+                            f = False
+                            b = False
+                            c = False
+                        elif vol == 2:
+                            dadosEspec = []
+                            dadosEspec.append(input("Digite seu nome: "))
+                            dadosEspec.append(input("Digite seu email: "))
+                            dadosEspec.append(input("Digite o seu número de telefone: "))
+                            limpa()
+                            dadosEspec.append(input("Insira o seu grau de escolaridade: "))
+                            dadosEspec.append(input("Insira sua área de interesse: "))
+                            dadosEspec.append(input("Alguma proposta?\n"))
+                            limpa()
+                            proceed = input("Pressione enter para continuar...")
+                            escreverDados('DadosSGEspec.csv', dadosEspec)
+                            limpa()
+                            f = False
+                            b = False
+                            c = False
+            elif escolha_menu==3:
+                b = True
+                while b:
+                    d=True
+                    limpa()
+                    print("Com que frequência você deseja doar?")
+                    freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
+                    while d:
+                        if freqDoacao == 0:
+                            limpa()
+                            d = False
+                            b = False                        
+                        elif freqDoacao == 1:
+                            e = True
+                            limpa()
+                            while e:
+                                if logged == False:
+                                    escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
+                                    if escolha_login == 0:
+                                        limpa()
+                                        e = False
+                                        d = False
+                                        escolha_login = 10
+                                    elif escolha_login == 1:
+                                        while f:
+                                            limpa()                            
+                                            Login('DadosADM.csv',contasADM)                                       
+                                    elif escolha_login == 2:
+                                        while f:
+                                            limpa()
+                                            Cadastro('DadosADM.csv',contasADM)                                       
+#nao passa daqui \\ conferir
+                                if logged == True:
+                                    limpa()
+                                    print("pix ou cartao aqui")
+                                    proceed = input("\nPressione enter para continuar...")
+                                    e = False
+                                    d = False
+                                    b = False
+                                    limpa()
+                        elif freqDoacao == 2:
+                            limpa()
+                            print("pix ou cartão aqui")
                             proceed = input("\nPressione enter para continuar...")
                             d = False
                             limpa()
-                    elif freqDoacao == 2:
-                        limpa()
-                        print("pix ou cartão aqui")
-                        proceed = input("\nPressione enter para continuar...")
-                        d = False
-                        limpa()
     # Tela de login
     if escolha_main == 2 and logged == False:
         limpa()
