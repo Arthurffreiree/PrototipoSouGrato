@@ -13,6 +13,8 @@ global a
 global b
 global c
 global d
+global e
+global f
 global logged
 
 #Valores das Globais
@@ -21,6 +23,7 @@ b = True
 c = True
 d = True
 e = True
+f = True
 logged = False
 
 #Variáveis de Escolha
@@ -41,36 +44,41 @@ def escreverDados(nomeArquivo, nomeLista):
         
 #Tela de Login
 def Login(nomeArquivo, nomeDic):
-    global b
+    global f
     global proceed
     global logged
+    global b
+    global d
 #fica voltando pra esse if
 #checar depois
-    while b == True:
-            with open(nomeArquivo,'r') as adm:
-                leitor = csv.reader(adm)
-                nomeDic = {l[0]:l[1] for l in leitor}
-                user = input('Digite o email de login: ')
-                if user not in nomeDic:
+    with open(nomeArquivo,'r') as adm:
+        leitor = csv.reader(adm)
+        nomeDic = {l[0]:l[1] for l in leitor}
+        while d == True:
+            user = input('Digite o email de login: ')
+            if user not in nomeDic:
+                limpa()
+                print('Login inválido')                    
+                escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
+                if escolha_voltar == 2:
+                    d = False
+                    f = False
                     limpa()
-                    print('Login inválido')                    
+            else:
+                senha = input('Digite sua senha: ')
+                if nomeDic[user] != senha:          
+                    print('Senha inválida!')                    
                     escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                     if escolha_voltar == 2:
-                        b = False
+                        d = False
+                        f = False
                         limpa()
                 else:
-                    senha = input('Digite sua senha: ')
-                    if nomeDic[user] != senha:          
-                        print('Senha inválida!')                    
-                        escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                        if escolha_voltar == 2:
-                            b = False
-                            limpa()
-                    else:
-                        logged = True
-                        b = False
-                        limpa()
-                        proceed = input('''Login feito com sucesso!
+                    logged = True
+                    f = False
+
+                    limpa()
+                    proceed = input('''Login feito com sucesso!
 pressione enter para continuar...''') 
 #Tela de Cadastro
 def Cadastro(nomeArquivo, nomeDic):
