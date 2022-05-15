@@ -34,7 +34,9 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                 while f:
                     b = True
                     print("Qual tipo de voluntário você deseja ser?")
-                    vol = int(input("[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n"))
+                    vol = int(input('''[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n
+Atenção: Ao se inscrever como voluntário, você concorda em disponibilizar
+seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A \x1B[75D'''))
                     limpa()
                     while b:
                         if vol == 0:
@@ -74,10 +76,10 @@ iniciativas e instituições sociais para assistir comunidades em situações em
             elif escolha_menu==3:
                 b = True
                 while b:
-                    d=True
                     limpa()
                     print("Com que frequência você deseja doar?")
                     freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
+                    d = True
                     while d:
                         if freqDoacao == 0:
                             limpa()
@@ -85,24 +87,28 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                             b = False                        
                         elif freqDoacao == 1:
                             e = True
+                            g = True
                             limpa()
                             while e:
-                                if logged == False:
-                                    escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
-                                    if escolha_login == 0:
-                                        limpa()
-                                        e = False
-                                        d = False
-                                        escolha_login = 10
-                                    elif escolha_login == 1:
-                                        while f:
-                                            limpa()                            
-                                            Login('DadosADM.csv',contasADM)                                       
-                                    elif escolha_login == 2:
-                                        while f:
+                                g = True
+                                while g:
+                                    if logged == False:
+                                        escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
+                                        if escolha_login == 0:
                                             limpa()
-                                            Cadastro('DadosADM.csv',contasADM)                                       
+                                            g = False
+                                            e = False
+                                            d = False
+                                            #nao tá voltando
+                                        elif escolha_login == 1:
+                                                limpa()                            
+                                                Login('DadosADM.csv',contasADM)                                       
+                                        elif escolha_login == 2:
+                                                limpa()
+                                                Cadastro('DadosADM.csv',contasADM)                                       
 #nao passa daqui \\ conferir
+                            g = True
+                            while g == True:
                                 if logged == True:
                                     limpa()
                                     print("pix ou cartao aqui")
@@ -110,6 +116,7 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                                     e = False
                                     d = False
                                     b = False
+                                    g = False
                                     limpa()
                         elif freqDoacao == 2:
                             limpa()
