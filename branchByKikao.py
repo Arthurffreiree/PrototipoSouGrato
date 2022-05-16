@@ -80,6 +80,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                     print("Com que frequência você deseja doar?")
                     freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
                     d = True
+#Não volta pra essa tela, buga e para de funcionar
                     while d:
                         if freqDoacao == 0:
                             limpa()
@@ -106,7 +107,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                         elif escolha_login == 2:
                                                 limpa()
                                                 Cadastro('DadosADM.csv',contasADM)                                       
-#nao passa daqui \\ conferir
+#Problema na conexão do fechamento do login com a abertura dessa tela
                             g = True
                             while g == True:
                                 if logged == True:
