@@ -15,6 +15,7 @@ global c
 global d
 global e
 global f
+global g
 global logged
 
 #Valores das Globais
@@ -24,6 +25,7 @@ c = True
 d = True
 e = True
 f = True
+g = True
 logged = False
 
 #Variáveis de Escolha
@@ -49,8 +51,7 @@ def Login(nomeArquivo, nomeDic):
     global logged
     global b
     global d
-#fica voltando pra esse if
-#checar depois
+    global g
     with open(nomeArquivo,'r') as adm:
         leitor = csv.reader(adm)
         nomeDic = {l[0]:l[1] for l in leitor}
@@ -58,7 +59,7 @@ def Login(nomeArquivo, nomeDic):
             user = input('Digite o email de login: ')
             if user not in nomeDic:
                 limpa()
-                print('Login inválido')                    
+                print('Login inválido')                  
                 escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                 if escolha_voltar == 2:
                     d = False
@@ -67,23 +68,26 @@ def Login(nomeArquivo, nomeDic):
             else:
                 senha = input('Digite sua senha: ')
                 if nomeDic[user] != senha:          
-                    print('Senha inválida!')                    
+                    print('Senha inválida!')              
                     escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                     if escolha_voltar == 2:
+                        g = False
                         d = False
                         f = False
                         limpa()
                 else:
-                    logged = True
                     f = False
-
+                    g = False
+                    d = False
                     limpa()
                     proceed = input('''Login feito com sucesso!
 pressione enter para continuar...''') 
+                    logged = True
 #Tela de Cadastro
 def Cadastro(nomeArquivo, nomeDic):
     global b
     global e
+    global g
     global proceed
     global logged
     with open(nomeArquivo,'r') as adm:
@@ -107,8 +111,8 @@ def Cadastro(nomeArquivo, nomeDic):
             senha = input('Digite sua senha:')
             conf = input('Confirme a senha: ')
             if senha == conf:
-                cadastro.append(senha)
-                dadosCadastro.append(senha)
+                cadastro.insert(1, senha)
+                dadosCadastro.insert(1, senha)
                 e = False
             else:
                 limpa()
@@ -117,6 +121,9 @@ Pressione enter para continuar...''')
         limpa()
         escreverDados('DadosADM.csv', cadastro)
         escreverDados('DadosCadastro.csv',dadosCadastro)
-        b=False
+        g = False
+        b = False
         logged = True    
-        
+#def voluntRonda():
+ #   if logged == True:
+-
