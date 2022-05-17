@@ -85,40 +85,35 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         if freqDoacao == 0:
                             limpa()
                             d = False
-                            b = False                        
+                            b = False             
+#############################################################################           
                         elif freqDoacao == 1:
                             e = True
-                            g = True
                             limpa()
-                            while e:
-                                g = True
-                                while g:
-                                    if logged == False:
-                                        escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
-                                        if escolha_login == 0:
+                            if logged == False:
+                                while e:
+                                    escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
+                                    if escolha_login == 0:
+                                        limpa()
+                                        g = False
+                                        e = False
+                                        d = False       
+                                    elif escolha_login == 1:
+                                            limpa()                            
+                                            Login('DadosADM.csv',contasADM)                                       
+                                    elif escolha_login == 2:
                                             limpa()
-                                            g = False
-                                            e = False
-                                            d = False
-                                            #nao tá voltando
-                                        elif escolha_login == 1:
-                                                limpa()                            
-                                                Login('DadosADM.csv',contasADM)                                       
-                                        elif escolha_login == 2:
-                                                limpa()
-                                                Cadastro('DadosADM.csv',contasADM)                                       
-#Problema na conexão do fechamento do login com a abertura dessa tela
-                            g = True
-                            while g == True:
-                                if logged == True:
+                                            Cadastro('DadosADM.csv',contasADM)                                       
+                            if logged == True:
+                                while e == True: 
                                     limpa()
                                     print("pix ou cartao aqui")
                                     proceed = input("\nPressione enter para continuar...")
                                     e = False
                                     d = False
                                     b = False
-                                    g = False
                                     limpa()
+#############################################################################                                    
                         elif freqDoacao == 2:
                             limpa()
                             print("pix ou cartão aqui")
