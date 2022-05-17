@@ -46,25 +46,23 @@ def escreverDados(nomeArquivo, nomeLista):
         
 #Tela de Login
 def Login(nomeArquivo, nomeDic):
-    global f
     global proceed
     global logged
-    global b
-    global d
     global g
-    with open(nomeArquivo,'r') as adm:
-        leitor = csv.reader(adm)
-        nomeDic = {l[0]:l[1] for l in leitor}
-        while d == True:
+    global e
+    while g == True:
+        with open(nomeArquivo,'r') as adm:
+            leitor = csv.reader(adm)
+            nomeDic = {l[0]:l[1] for l in leitor}
             user = input('Digite o email de login: ')
             if user not in nomeDic:
                 limpa()
                 print('Login inválido')                  
                 escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                 if escolha_voltar == 2:
-                    d = False
-                    f = False
+                    g = False
                     limpa()
+                else: limpa()
             else:
                 senha = input('Digite sua senha: ')
                 if nomeDic[user] != senha:          
@@ -72,17 +70,14 @@ def Login(nomeArquivo, nomeDic):
                     escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
                     if escolha_voltar == 2:
                         g = False
-                        d = False
-                        f = False
                         limpa()
                 else:
-                    f = False
+                    logged = True
                     g = False
-                    d = False
+                    e = False
                     limpa()
                     proceed = input('''Login feito com sucesso!
 pressione enter para continuar...''') 
-                    logged = True
 #Tela de Cadastro
 def Cadastro(nomeArquivo, nomeDic):
     global b
@@ -126,4 +121,3 @@ Pressione enter para continuar...''')
         logged = True    
 #def voluntRonda():
  #   if logged == True:
--
