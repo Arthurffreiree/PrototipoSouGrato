@@ -1,24 +1,22 @@
 from PROTOmod import *
 
 #Tela Inicial
-while a == True:
+while wInicial == True:
     if logged == False:
         limpa()
         escolha_main = int(input('[1] - Acessar o menu \t [2] - Login/Cadastro \n'))
-        b = True
-        c = True
     if logged == True:
         limpa()
         escolha_main = int(input('[1] - Acessar o menu \t [2] - Acessar seu perfil \t [3] - Logout\n'))
-        c = True
 # Menu
     if escolha_main == 1:
-        while c == True:
+        wMain = True
+        while wMain == True:
             limpa()
             escolha_menu = int(input('[0] - Voltar \n[1] - Quem somos \n[2] - Seja voluntário \n[3] - Seja doador \n'))
             if escolha_menu == 0:
                 limpa()
-                c = False
+                wMain = False
             elif escolha_menu == 1:
                 limpa()
                 print('''O Sou Grato é uma Iniciativa social sem fins lucrativos que surgiu em 2018 com o propósito de 
@@ -32,16 +30,16 @@ iniciativas e instituições sociais para assistir comunidades em situações em
                 f = True
                 limpa()
                 while f:
-                    b = True
+                    wVolunt = True
                     print("Qual tipo de voluntário você deseja ser?")
                     vol = int(input('''[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n
 Atenção: Ao se inscrever como voluntário, você concorda em disponibilizar
 seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A \x1B[75D'''))
                     limpa()
-                    while b:
+                    while wVolunt:
                         if vol == 0:
                             limpa()
-                            b = False
+                            wVolunt = False
                             f = False
                         elif vol == 1:
                             dadosRonda = []
@@ -55,8 +53,8 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             escreverDados('DadosSGRonda.csv', dadosRonda)
                             limpa()
                             f = False
-                            b = False
-                            c = False
+                            wVolunt = False
+                            wMain = False
                         elif vol == 2:
                             dadosEspec = []
                             dadosEspec.append(input("Digite seu nome: "))
@@ -71,11 +69,11 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             escreverDados('DadosSGEspec.csv', dadosEspec)
                             limpa()
                             f = False
-                            b = False
-                            c = False
+                            wVolunt = False
+                            wMain = False
             elif escolha_menu==3:
-                b = True
-                while b:
+                wDonate = True
+                while wDonate:
                     limpa()
                     print("Com que frequência você deseja doar?")
                     freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
@@ -84,7 +82,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         if freqDoacao == 0:
                             limpa()
                             d = False
-                            b = False             
+                            wDonate = False             
       
                         elif freqDoacao == 1:
                             limpa()
@@ -106,7 +104,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                                 d = False
                                                 f = False
                                                 g = False
-                                                b = False
+                                                wDonate = False
                                                 logged = True
                                                 pass
                                             else: 
@@ -132,7 +130,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                                 d = False
                                                 f = False
                                                 g = False
-                                                b = False
+                                                wDonate = False
                                                 logged = True
                                                 pass
                                             else:
@@ -153,7 +151,7 @@ Pressione enter para continuar...''')
         escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
         if escolha_login == 0:
             limpa()
-            c = False
+            wMain = False
         elif escolha_login == 1:
             while b == True:
                 limpa()
