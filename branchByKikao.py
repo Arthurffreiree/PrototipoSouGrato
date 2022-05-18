@@ -80,40 +80,67 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                     print("Com que frequência você deseja doar?")
                     freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
                     d = True
-#Não volta pra essa tela, buga e para de funcionar
                     while d:
                         if freqDoacao == 0:
                             limpa()
                             d = False
                             b = False             
-#############################################################################           
+      
                         elif freqDoacao == 1:
-                            e = True
                             limpa()
-                            if logged == False:
-                                while e:
+                            g = True
+                            while g:
+                                if logged == False:
                                     escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
                                     if escolha_login == 0:
                                         limpa()
-                                        g = False
-                                        e = False
-                                        d = False       
+                                        g = False                                          
                                     elif escolha_login == 1:
-                                            limpa()                            
-                                            Login('DadosADM.csv',contasADM)                                       
+                                        limpa() 
+                                        f = True
+                                        while f == True:                        
+                                            if Login('DadosADM.csv', contasADM) == True:
+                                                limpa()
+                                                print('Pix ou Cartão aqui...')
+                                                proceed = input('\nPressione enter para continuar...')
+                                                d = False
+                                                f = False
+                                                g = False
+                                                b = False
+                                                logged = True
+                                                pass
+                                            else: 
+                                                limpa()
+                                                print('Usuário ou Senha incorretos.')
+                                                escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
+                                                if escolha_voltar == 2:
+                                                    f = False
+                                                    g = False
+                                                    limpa()
+                                                    pass
+                                                else:
+                                                    limpa()
+                                                    continue
                                     elif escolha_login == 2:
+                                        f=True
+                                        while f:
                                             limpa()
-                                            Cadastro('DadosADM.csv',contasADM)                                       
-                            if logged == True:
-                                while e == True: 
-                                    limpa()
-                                    print("pix ou cartao aqui")
-                                    proceed = input("\nPressione enter para continuar...")
-                                    e = False
-                                    d = False
-                                    b = False
-                                    limpa()
-#############################################################################                                    
+                                            if Cadastro('DadosADM.csv', contasADM) == True:
+                                                limpa()
+                                                print('Pix ou Cartão aqui...')
+                                                proceed = input('\nPressione enter para continuar...')
+                                                d = False
+                                                f = False
+                                                g = False
+                                                b = False
+                                                logged = True
+                                                pass
+                                            else:
+                                                limpa()
+                                                proceed = input('''Usuário já cadastrado.
+Pressione enter para continuar...''')
+                                                f = False
+                                                g = False                                   
                         elif freqDoacao == 2:
                             limpa()
                             print("pix ou cartão aqui")
