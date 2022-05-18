@@ -24,6 +24,7 @@ ajudar pessoas em situação de rua e famílias em vulnerabilidade. Atualmente, 
 semanalmente no município de Recife-PE, no qual são distribuídos alimentos, água, ração para cães e gatos, 
 kits de higiene pessoal, roupas e cobertores. Outros tipos de ações também são realizadas em parceria com outras 
 iniciativas e instituições sociais para assistir comunidades em situações emergenciais.''')
+#Tentar colocar isso em um TXT
                 proceed = input("\nPressione enter para continuar...")
                 limpa()
             elif escolha_menu == 2:
@@ -92,12 +93,14 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                     escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
                                     if escolha_login == 0:
                                         limpa()
-                                        g = False                                          
+                                        g = False    
+                                        d = False                                      
                                     elif escolha_login == 1:
                                         limpa() 
                                         f = True
-                                        while f == True:                        
-                                            if Login('DadosADM.csv', contasADM) == True:
+                                        while f == True:
+                                            Login()                        
+                                            if Login() == True:
                                                 limpa()
                                                 print('Pix ou Cartão aqui...')
                                                 proceed = input('\nPressione enter para continuar...')
@@ -107,38 +110,75 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                                 wDonate = False
                                                 logged = True
                                                 pass
-                                            else: 
+                                            elif Login() == 'cadastro':
+                                                print("nao rolou")
                                                 limpa()
-                                                print('Usuário ou Senha incorretos.')
-                                                escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                                                if escolha_voltar == 2:
+                                                Cadastro()
+                                                if Cadastro()==True:
+                                                    limpa()
+                                                    print('Pix ou Cartão aqui...')
+                                                    proceed = input('\nPressione enter para continuar...')
+                                                    d = False
+                                                    f = False
+                                                    g = False
+                                                    wDonate = False
+                                                    logged = True
+                                                    pass                                                    
+                                                elif Cadastro == False and conferirSenhaReg()=='senhaNaoCoincide':
+                                                    wRegister = True
+                                                    while wRegister:
+                                                        print('As senhas não coincidem.')
+                                                        proceed = int(input('[1] - Tentar novamente [2] - Voltar'))
+                                                        if proceed == 2:
+                                                            d = False
+                                                            f = False
+                                                            g = False
+                                                            logged = False
+                                                            wRegister = False
+                                                            pass
+                                                        else:
+                                                            limpa()
+                                                            Cadastro()
+                                                            pass
+                                                    pass
+                                                pass
+                                            pass
+                                        pass
+                                    elif escolha_login == 2:
+                                        f=True
+                                        while f:
+                                            limpa()
+                                            if Cadastro() == True:
+                                                limpa()
+                                                print('Pix ou Cartão aqui...')
+                                                proceed = input('\nPressione enter para continuar...')
+                                                d = False
+                                                f = False
+                                                g = False
+                                                wDonate = False
+                                                logged = True
+                                                pass   
+                                            elif Cadastro() == False:
+                                                proceed = input('''Usuário já cadastrado.
+Pressione enter para continuar...''')                       
+                                                f = False
+                                                g = False        
+                                                continue              
+                                            elif Cadastro()==False and conferirSenhaReg() == False:
+                                                proceed = int(input('''As senhas não coincidem.
+[1] - Tentar Novamente [2] - Voltar'''))
+                                                if proceed == 2:
+                                                    e = False
                                                     f = False
                                                     g = False
                                                     limpa()
                                                     pass
                                                 else:
+                                                    g = False
                                                     limpa()
-                                                    continue
-                                    elif escolha_login == 2:
-                                        f=True
-                                        while f:
-                                            limpa()
-                                            if Cadastro('DadosADM.csv', contasADM) == True:
-                                                limpa()
-                                                print('Pix ou Cartão aqui...')
-                                                proceed = input('\nPressione enter para continuar...')
-                                                d = False
-                                                f = False
-                                                g = False
-                                                wDonate = False
-                                                logged = True
-                                                pass
-                                            else:
-                                                limpa()
-                                                proceed = input('''Usuário já cadastrado.
+                                                    proceed = input('''Usuário já cadastrado.
 Pressione enter para continuar...''')
-                                                f = False
-                                                g = False                                   
+                                                    break                             
                         elif freqDoacao == 2:
                             limpa()
                             print("pix ou cartão aqui")
@@ -198,7 +238,7 @@ Pressione enter para continuar...''')
                     cadastro_senha = input('Digite a senha desejada: ')
                     cadastro.append(cadastro_usuario)
                     cadastro.append(cadastro_senha)
-                    Cadastro('DadosADM.csv', cadastro)
+                    Cadastro()
                     limpa()
                     logged = True
                     b = False
