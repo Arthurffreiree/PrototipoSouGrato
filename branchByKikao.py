@@ -98,8 +98,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                     elif escolha_login == 1:
                                         limpa() 
                                         f = True
-                                        while f == True:
-                                            Login()                        
+                                        while f == True:                        
                                             if Login() == True:
                                                 limpa()
                                                 print('Pix ou Cartão aqui...')
