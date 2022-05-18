@@ -9,9 +9,10 @@ dadosCadastro = []
 
 #Variáveis Globais
 global proceed
-global a
-global b
-global c
+global wInicial
+global wVolunt
+global wMain
+global wDonate
 global d
 global e
 global f
@@ -19,9 +20,9 @@ global g
 global logged
 
 #Valores das Globais
-a = True
+wInicial = True
 b = True
-c = True
+wMain = True
 d = True
 e = True
 f = True
