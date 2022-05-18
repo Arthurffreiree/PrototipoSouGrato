@@ -46,56 +46,28 @@ def escreverDados(nomeArquivo, nomeLista):
         
 #Tela de Login
 def Login(nomeArquivo, nomeDic):
-    global proceed
-    global logged
-    global g
-    global e
-    while g == True:
+        user = input('Digite o email de login: ')
+        senha = input('Digite sua senha: ')
         with open(nomeArquivo,'r') as adm:
             leitor = csv.reader(adm)
             nomeDic = {l[0]:l[1] for l in leitor}
-            user = input('Digite o email de login: ')
-            if user not in nomeDic:
-                limpa()
-                print('Login inválido')                  
-                escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                if escolha_voltar == 2:
-                    g = False
-                    limpa()
-                else: limpa()
+            if user not in nomeDic or nomeDic[user] != senha:
+                return False                
             else:
-                senha = input('Digite sua senha: ')
-                if nomeDic[user] != senha:          
-                    print('Senha inválida!')              
-                    escolha_voltar = int(input('[1] - Tentar novamente \t [2] - Voltar \n'))
-                    if escolha_voltar == 2:
-                        g = False
-                        limpa()
-                else:
-                    logged = True
-                    g = False
-                    e = False
-                    limpa()
-                    proceed = input('''Login feito com sucesso!
-pressione enter para continuar...''') 
+                return True 
 #Tela de Cadastro
+
 def Cadastro(nomeArquivo, nomeDic):
-    global b
-    global e
-    global g
     global proceed
-    global logged
+    global e
+    global f
+    global g
+    e = True
+    user = input('Insira o email para login: ')
     with open(nomeArquivo,'r') as adm:
         leitor = csv.reader(adm)
         nomeDic = {l[0]:l[1] for l in leitor}
-    user = input('Insira o email para login: ')
-    if user in nomeDic:
-        limpa()
-        print('Email já cadastrado.')
-        proceed = input("\nPressione enter para continuar...")
-        b = False
-        limpa()
-    else:
+    if user not in nomeDic:
         nome = input('Digite seu nome: ')
         cpf = input('Digite seu CPF: ')
         cadastro.append(user)
@@ -111,13 +83,23 @@ def Cadastro(nomeArquivo, nomeDic):
                 e = False
             else:
                 limpa()
-                proceed = input('''As senhas não correspondem.
-Pressione enter para continuar...''')
+                proceed = int(input('''As senhas não coincidem.
+[1] - Tentar novamente \t [2] - Voltar \n'''))
+                if proceed == 2:
+                    limpa()
+                    e = False
+                    f = False
+                    g = False
+                    break
+# O BOTAO DE VOLTAR NÃO FUNCIONA
+# REVER // TENTAR NOVAMENTE FUNCIONA NORMAL
+                else:
+                    limpa()
+                    pass   
         limpa()
         escreverDados('DadosADM.csv', cadastro)
         escreverDados('DadosCadastro.csv',dadosCadastro)
-        g = False
-        b = False
-        logged = True    
+        return True
+    else: return False
 #def voluntRonda():
  #   if logged == True:
