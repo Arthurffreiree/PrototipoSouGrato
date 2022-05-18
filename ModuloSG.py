@@ -2,6 +2,8 @@
 import csv
 import os
 
+from regex import P
+
 #Listas, Dicionários
 contasADM={}
 cadastro = []
@@ -46,61 +48,55 @@ def escreverDados(nomeArquivo, nomeLista):
         adm.writelines(esc+'\n')
         
 #Tela de Login
-def Login(nomeArquivo, nomeDic):
+def Login():
         user = input('Digite o email de login: ')
         senha = input('Digite sua senha: ')
-        with open(nomeArquivo,'r') as adm:
+        with open('DadosADM.csv','r') as adm:
             leitor = csv.reader(adm)
-            nomeDic = {l[0]:l[1] for l in leitor}
-            if user not in nomeDic or nomeDic[user] != senha:
-                return False                
-            else:
-                return True 
+            contasADM = {l[0]:l[1] for l in leitor}
+        if user not in contasADM:
+            return 'cadastro'
+        elif user in contasADM and contasADM[user]!= senha:
+            return 'senhaIncorreta'               
+        elif user in contasADM and contasADM[user] == senha:
+            return True 
+        else: 
+            print('Não foi possível fazer o login') 
+            pass
 #Tela de Cadastro
 
-def Cadastro(nomeArquivo, nomeDic):
-    global proceed
+def Cadastro():
     global e
-    global f
-    global g
+    global user
     e = True
     user = input('Insira o email para login: ')
-    with open(nomeArquivo,'r') as adm:
-        leitor = csv.reader(adm)
-        nomeDic = {l[0]:l[1] for l in leitor}
-    if user not in nomeDic:
-        nome = input('Digite seu nome: ')
-        cpf = input('Digite seu CPF: ')
-        cadastro.append(user)
-        dadosCadastro.append(user)
-        dadosCadastro.append(nome)
-        dadosCadastro.append(cpf)
-        while e==True:
-            senha = input('Digite sua senha:')
-            conf = input('Confirme a senha: ')
-            if senha == conf:
-                cadastro.insert(1, senha)
-                dadosCadastro.insert(1, senha)
-                e = False
-            else:
-                limpa()
-                proceed = int(input('''As senhas não coincidem.
-[1] - Tentar novamente \t [2] - Voltar \n'''))
-                if proceed == 2:
-                    limpa()
-                    e = False
-                    f = False
-                    g = False
-                    break
-# O BOTAO DE VOLTAR NÃO FUNCIONA
-# REVER // TENTAR NOVAMENTE FUNCIONA NORMAL
-                else:
-                    limpa()
-                    pass   
+    nome = input('Digite seu nome: ')
+    cpf = input('Digite seu CPF: ')
+    cadastro.append(user)
+    dadosCadastro.append(user)
+    dadosCadastro.append(nome)
+    dadosCadastro.append(cpf)
+    while e:
+        if conferirSenhaReg() == True: 
+            limpa()
+            escreverDados('DadosADM.csv', cadastro)
+            escreverDados('DadosCadastro.csv',dadosCadastro)
+            e = False
+            return True  
+        elif conferirSenhaReg() == False:
+            e = False
+            return 'senhaNaoCoincide'
+        
+
+
+#Conf = Senha?
+def conferirSenhaReg():
+    senha = input('Digite sua senha:')
+    conf = input('Confirme a senha: ')
+    if senha == conf:
+        cadastro.insert(1, senha)
+        dadosCadastro.insert(1, senha)            
+        return True  
+    else:
         limpa()
-        escreverDados('DadosADM.csv', cadastro)
-        escreverDados('DadosCadastro.csv',dadosCadastro)
-        return True
-    else: return False
-#def voluntRonda():
- #   if logged == True:
+        return False
