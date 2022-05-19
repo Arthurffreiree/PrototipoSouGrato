@@ -1,4 +1,4 @@
-from ModuloSG import *
+from Modulo import *
 
 while wMain:
 
