@@ -83,8 +83,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         if freqDoacao == 0:
                             limpa()
                             d = False
-                            wDonate = False             
-      
+                            wDonate = False         
                         elif freqDoacao == 1:
                             limpa()
                             g = True
@@ -94,35 +93,49 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                     if escolha_login == 0:
                                         limpa()
                                         g = False    
-                                        d = False                                      
+                                        d = False       
+                                        pass                               
                                     elif escolha_login == 1:
-                                        limpa() 
-                                        f = True
-                                        while f == True:                        
-                                            if Login() == True:
-                                                limpa()
-                                                print('Pix ou Cartão aqui...')
-                                                proceed = input('\nPressione enter para continuar...')
-                                                d = False
-                                                f = False
+                                        limpa()     
+                                        login = Login()                  
+                                        if login == True:
+                                            limpa()
+                                            print('Pix ou Cartão aqui...')
+                                            proceed = input('Pressione enter para continuar...')
+                                            d = False
+                                            f = False
+                                            g = False
+                                            wDonate = False
+                                            logged = True
+                                            pass                                           
+                                        elif login == 'cadastro':
+                                            limpa()
+                                            print("Usuário não encontrado.")
+                                            proceed = input('[1] - Cadastre-se [2] - Voltar\n')
+                                            if proceed == 2:
                                                 g = False
                                                 wDonate = False
-                                                logged = True
-                                                pass
-                                            elif Login() == 'cadastro':
-                                                print("nao rolou")
+                                                logged = False
+                                                freqDoacao = 0                                           
+                                            else:
                                                 limpa()
-                                                Cadastro()
                                                 if Cadastro()==True:
                                                     limpa()
-                                                    print('Pix ou Cartão aqui...')
-                                                    proceed = input('\nPressione enter para continuar...')
+                                                    print('Cadastro concluído com sucesso!\nPix ou Cartão aqui...')
+                                                    proceed = input('Pressione enter para continuar...')
                                                     d = False
                                                     f = False
                                                     g = False
                                                     wDonate = False
                                                     logged = True
-                                                    pass                                                    
+                                                    pass          
+                                                elif Cadastro() == 'jaCadastrado':
+                                                    print("Usuário já cadastrado.")
+                                                proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                                                if proceed == 2:
+                                                            f = False                                                            
+                                                            logged = False
+                                                            pass                                          
                                                 elif Cadastro == False and conferirSenhaReg()=='senhaNaoCoincide':
                                                     wRegister = True
                                                     while wRegister:
@@ -142,6 +155,22 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                                     pass
                                                 pass
                                             pass
+                                        elif login == 'senhaIncorreta':
+                                            limpa()
+                                            print('Senha ou login inválidos.')
+                                            proceed = int(input('[1] - Tentar novamente [2] - Voltar\n'))
+                                            limpa()
+                                            if proceed == 2:
+                                                d = False
+                                                f = False
+                                                g = False
+                                                logged = False
+                                                wRegister = False
+                                                pass
+                                            else: 
+                                                login 
+                                                pass
+                                            pass
                                         pass
                                     elif escolha_login == 2:
                                         f=True
@@ -157,12 +186,13 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                                 wDonate = False
                                                 logged = True
                                                 pass   
-                                            elif Cadastro() == False:
+                                            elif Cadastro() == 'jaCadastrado':
                                                 proceed = input('''Usuário já cadastrado.
-Pressione enter para continuar...''')                       
+Pressione enter para continuar...''')                  
+                                                wRegister = False     
                                                 f = False
                                                 g = False        
-                                                continue              
+                                                pass              
                                             elif Cadastro()==False and conferirSenhaReg() == False:
                                                 proceed = int(input('''As senhas não coincidem.
 [1] - Tentar Novamente [2] - Voltar'''))
