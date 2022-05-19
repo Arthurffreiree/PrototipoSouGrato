@@ -60,7 +60,7 @@ def Login():
             return 'senhaIncorreta'               
         elif user in contasADM and contasADM[user] == senha:
             return True 
-        else: 
+        else:
             print('Não foi possível fazer o login') 
             pass
 #Tela de Cadastro
@@ -70,23 +70,26 @@ def Cadastro():
     global user
     e = True
     user = input('Insira o email para login: ')
-    nome = input('Digite seu nome: ')
-    cpf = input('Digite seu CPF: ')
-    cadastro.append(user)
-    dadosCadastro.append(user)
-    dadosCadastro.append(nome)
-    dadosCadastro.append(cpf)
-    while e:
-        if conferirSenhaReg() == True: 
-            limpa()
-            escreverDados('DadosADM.csv', cadastro)
-            escreverDados('DadosCadastro.csv',dadosCadastro)
-            e = False
-            return True  
-        elif conferirSenhaReg() == False:
-            e = False
-            return 'senhaNaoCoincide'
-        
+    if user in contasADM:
+        return 'jaCadastrado'
+    else:
+        nome = input('Digite seu nome: ')
+        cpf = input('Digite seu CPF: ')
+        cadastro.append(user)
+        dadosCadastro.append(user)
+        dadosCadastro.append(nome)
+        dadosCadastro.append(cpf)
+        while e:
+            if conferirSenhaReg() == True: 
+                limpa()
+                escreverDados('DadosADM.csv', cadastro)
+                escreverDados('DadosCadastro.csv',dadosCadastro)
+                e = False
+                return True  
+            elif conferirSenhaReg() == False:
+                e = False
+                return 'senhaNaoCoincide'
+            
 
 
 #Conf = Senha?
