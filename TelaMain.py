@@ -1,51 +1,132 @@
-from Modulo import *
+from ProtoMod2 import *
 
-while wMain:
-
-    wEscolha2 = True
-    
+while w_main:
+        
     if logged == False:
         limpa()
         escolha_menu = int(input('[1] - Acessar o menu \t [2] - Login/Cadastro \t [3] - Sair \n'))
-    
+        pass
     if logged == True:
         limpa()
         escolha_menu = int(input('[1] - Acessar o menu \t [2] - Acessar perfil \t [3] - Sair \t [4] - Logout \n'))
-
+        pass
     if escolha_menu == 4:
         limpa()
         logged = False
-    
+        pass 
     elif escolha_menu == 3:
         limpa()
-        wMain = False
-    
-    elif escolha_menu == 2 and logged == False:
+        print('Obrigadx por utilizar o app Sou Grato!')
+        w_main = False
+        pass
 
-        while wEscolha2:
+    elif escolha_menu == 2 and logged == False:
+        
+        w_escolha_2 = True
+
+        while w_escolha_2:
             limpa()
             escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
             
             if escolha_login == 0:
-                wEscolha2 = False
+                w_escolha_2 = False
             
             elif escolha_login == 1:
-                if Login() == True:
-                    logged = True
-                    wEscolha2 = False
-                else:
-                    limpa()
-                    print('Login inválido!')
-                    proceed = input("\nPressione enter para continuar...")
+                w_login = True
+                while w_login:
+
+                    log = login()
+
+                    if log == True:
+                        logged = True
+                        w_login = False
+                        w_escolha_2 = False
+                    elif log == 'cadastro':
+                        limpa()
+                        print('Email não encontrado.')
+                        proceed = input('[1] - Cadastrar-me [2] - Voltar\n')
+                        if proceed == 2:
+                            w_login = False
+                            logged = False
+                            pass
+                        else:
+                            cadastro = Cadastro()
+                            if cadastro == 'jaCadastrado':
+                                limpa()
+                                print('Email já cadastrado!')
+                                proceed = input('Pressione enter para continuar.')
+                                w_login = False
+                                logged = False
+                                pass
+                            elif cadastro == 'cpfUsado':
+                                limpa()
+                                print('Este CPF já está em uso!')
+                                proceed= input('Pressione enter para continuar.')
+                                w_login = False
+                                logged = False
+                                pass
+                            elif cadastro == 'senhaNaoCoincide':
+                                limpa()
+                                print('As senhas não coincidem.')
+                                proceed = int(input('[1] - Tentar Novamente [2] - Voltar\n'))
+                                if proceed == 2:
+                                    logged = False                                
+                                    w_login = False
+                                    w_escolha_2 = False
+                                    pass
+                            elif cadastro == True:
+                                limpa()
+                                print('Cadastro concluído com sucesso!')
+                                proceed = input('Pressione enter para continuar.')
+                                logged = True
+                                w_login = False
+                                w_escolha_2 = False
+                                pass
+                    elif log == 'senhaIncorreta':
+                        limpa()
+                        print('Usuário ou senha incorretos.')
+                        proceed = int(input('[1] - Tentar Novamente [2] - Voltar\n'))
+                        if proceed == 2:
+                            logged = False
+                            w_login = False
+                            w_escolha_2 = False
+                            pass
+                        
 
             elif escolha_login == 2:
-                if Cadastro() == True:
-                    print('Cadastro realizado com sucesso!')
+                limpa()
+                cadastro = Cadastro()
+                if cadastro == 'jaCadastrado':
+                    limpa()
+                    print('Email já cadastrado!')
+                    proceed = input('Pressione enter para continuar.')
+                    w_login = False
+                    logged = False
+                    pass
+                elif cadastro == 'cpfUsado':
+                    limpa()
+                    print('Este CPF já está em uso!')
+                    proceed= input('Pressione enter para continuar.')
+                    w_login = False
+                    logged = False
+                    pass
+                elif cadastro == 'senhaNaoCoincide':
+                    limpa()
+                    print('As senhas não coincidem.')
+                    proceed = int(input('[1] - Tentar Novamente [2] - Voltar'))
+                    if proceed == 2:
+                        logged = False                                
+                        w_login = False
+                        w_escolha_2 = False
+                        pass
+                elif cadastro == True:
+                    limpa()
+                    print('Cadastro concluído com sucesso!')
+                    proceed = input('Pressione enter para continuar.')
                     logged = True
-                    wEscolha2 = False
-                else:
-                    print('Não foi possível concluir seu cadastro!')
-                    proceed = input("\nPressione enter para continuar...")
+                    w_login = False
+                    w_escolha_2 = False
+                    pass
 
     elif escolha_menu == 2 and logged == True:
         limpa()
@@ -55,26 +136,163 @@ while wMain:
 
     elif escolha_menu == 1:
         
-        wMenu = True
-        while wMenu:
+        w_menu = True    
+        while w_menu:
             limpa()
             escolha_menu = int(input('[0] - Voltar \n[1] - Quem somos \n[2] - Seja voluntário \n[3] - Seja doador \n'))
             
             if escolha_menu == 0:
-                wMenu = False
+                w_menu = False
                 limpa()
 
             elif escolha_menu == 1:
-                TextoSG()
+                limpa()
+                w_qs = True
+                while w_qs:
+                    with open('QuemSomos.txt','r',encoding='utf8') as quemsomos:
+                        print(quemsomos.read())
+                    proceed = input('Pressione enter para continuar.')
+                    w_qs = False
+                    
 
             elif escolha_menu == 2:
-                Volunt()
-
-            elif escolha_menu == 3 and logged == False:
-                if DonateNotLogged() == True:
-                    logged = True
-            
-            elif escolha_menu == 3 and logged:
-                DonateLogged()
-
-                
+                limpa()
+                print("Qual tipo de voluntário você deseja ser?")
+                vol = int(input('''[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n
+Atenção: Ao se inscrever como voluntário, você concorda em disponibilizar
+seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A \x1B[75D'''))
+                w_vol = True
+                while w_vol:
+                    if vol == 1:
+                        reg = volunt_reg()
+                        if reg == True:
+                            print('''Agradecemos por você se cadastrar como voluntárix!
+    Você também pode nos ajudar por meio de doações.''')
+                            proceed = input('Pressione enter para continuar.')
+                            w_vol = False
+                        elif reg=='email_usado':
+                            print('Email já cadastrado.')
+                            procced = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            if proceed == '2':
+                                w_vol = False
+                        elif reg == 'cpf_usado':
+                            print('CPF já cadastrado.')
+                            procced = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            if proceed == '2':
+                                w_vol = False
+                        elif reg == 'senhaNaoCoincide':
+                            print('Senha inválida.')
+                            proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                            if proceed == '2':
+                                w_vol = False
+                        elif reg == 'usuario_nao_encontrado':
+                            print('Usuário não encontrado.')
+                            proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                            if proceed == '2':
+                                w_vol = False                      
+                    elif vol == 2:
+                        espec = volunt_espec()
+                        if espec == True:
+                            print('''Agradecemos por você se cadastrar como voluntárix!
+    Você também pode nos ajudar por meio de doações.''')
+                            proceed = input('Pressione enter para continuar.')
+                            w_vol = False
+                        elif espec=='email_usado':
+                            print('Email já cadastrado.')
+                            procced = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            if proceed == '2':
+                                w_vol = False
+                        elif espec == 'cpf_usado':
+                            print('CPF já cadastrado.')
+                            procced = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            if proceed == '2':
+                                w_vol = False
+                        elif espec == 'senhaNaoCoincide':
+                            print('Senha inválida.')
+                            proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                            if proceed == '2':
+                                w_vol = False
+                        elif espec == 'usuario_nao_encontrado':
+                            print('Usuário não encontrado.')
+                            proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                            if proceed == '2':
+                                w_vol = False 
+                        
+            elif escolha_menu == 3:
+                limpa()
+                print("Com que frequência você deseja doar?")
+                freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
+                w_freq = True
+                while w_freq:
+                    if freqDoacao == 0:
+                        w_freq = False
+                        pass
+                    elif freqDoacao == 1:
+                        limpa()
+                        mes = donate_mes()
+                        if mes == 'Logado':
+                            limpa()
+                            print('Pix ou Cartão aqui')
+                            proceed = input('Aperte enter para continuar.')
+                            w_freq = False
+                        if mes == 'login':
+                            limpa()
+                            print('Pix ou Cartão aqui')
+                            proceed = input('Aperte enter para continuar.')
+                            w_freq = False
+                            logged = True
+                            pass
+                        elif mes == 'cadastrado':
+                            limpa()
+                            print('Pix ou Cartão aqui')
+                            proceed = input('Aperte enter para continuar.')
+                            w_freq = False
+                            logged = True
+                            pass
+                        elif mes == 'cadastro':
+                            limpa()
+                            print('Email não encontrado.')
+                            proceed = input('[1] - Cadastrar-me [2] - Voltar\n')
+                            if proceed == 2:
+                                w_freq = False
+                                logged = False
+                                pass
+                            else:
+                                cadastro = Cadastro()
+                                if cadastro == 'jaCadastrado':
+                                    limpa()
+                                    print('Email já cadastrado!')
+                                    proceed = input('Pressione enter para continuar.')
+                                    w_freq = False
+                                    logged = False
+                                    pass
+                                elif cadastro == 'cpfUsado':
+                                    limpa()
+                                    print('Este CPF já está em uso!')
+                                    proceed= input('Pressione enter para continuar.')
+                                    w_freq = False
+                                    logged = False
+                                    pass
+                                elif cadastro == 'senhaNaoCoincide':
+                                    limpa()
+                                    print('As senhas não coincidem.')
+                                    proceed = int(input('[1] - Tentar Novamente [2] - Voltar\n'))
+                                    if proceed == 2:
+                                        logged = False                                
+                                        w_freq = False                                        
+                                        pass
+                                elif cadastro == True:
+                                    limpa()
+                                    print('Pix ou Cartão aqui')
+                                    proceed = input('Pressione enter para continuar.')
+                                    logged = True
+                                    w_freq = False                                                   
+                                pass
+                        elif mes == 'senhaIncorreta':
+                            limpa()
+                            print('Usuário ou senha incorretos.')
+                            proceed = int(input('[1] - Tentar Novamente [2] - Voltar\n'))
+                            if proceed == 2:
+                                logged = False
+                                w_freq = False
+                                pass
