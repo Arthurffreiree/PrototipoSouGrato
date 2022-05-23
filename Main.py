@@ -206,6 +206,10 @@ Atenção: Ao se inscrever como voluntário, você concorda em disponibilizar
 seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A \x1B[75D'''))
                 w_vol = True
                 while w_vol:
+                    if vol == 0:
+                        w_vol = False
+                        limpa()
+
                     if vol == 1:
                         reg = volunt_reg()
                         if reg == True:
