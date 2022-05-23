@@ -1,4 +1,4 @@
-from ProtoMod2 import *
+from Modulo import *
 
 while w_main:
         
@@ -130,9 +130,52 @@ while w_main:
 
     elif escolha_menu == 2 and logged == True:
         limpa()
-        print("Parte não terminada do perfil do usuário.")
-        proceed = input("\nPressione enter para continuar...")
-        pass
+#Tentei botar o nome mas n consegui
+        w_profile = True
+        while w_profile:
+            limpa()
+            # print(f'Perfil de {nome}')
+            escolha_perfil = int(input('''[1] - Metas 
+[2] - Histórico de doações 
+[3] - Histórico de Participações
+[4] - Feedback
+[0] - Voltar\n'''))
+            w_goals = True
+            while w_goals:
+                if escolha_perfil == 1:
+                    limpa()
+                    # print(f'Metas de {nome}')
+                    print('''As metas da semana estão perto de serem alcançadas!
+Semana da Ronda do dia 15/06/22
+    ███████████████████████████---------|76% Completa''')
+                    proceed = input('Pressione enter para voltar...')
+                    w_goals = False
+                    pass
+                elif escolha_perfil == 2:
+                    limpa()
+                    # print(f'Historico de doações de {nome}')
+                    with open('donate_history.txt','r',encoding='utf8') as dh:
+                        print(dh.read())     
+                    proceed = input("Pressione enter para continuar...")
+                    w_goals = False
+                    pass
+                elif escolha_perfil == 3:
+                    limpa()
+                    # print(f'Histórico de participação de {nome}')
+                    with open('part_history.txt','r',encoding='utf8') as ph:
+                        print(ph.read())
+                    proceed = input('Pressione enter para continuar.')
+                    w_goals = False
+                elif escolha_perfil == 4:
+                    limpa()
+                    # print(f'Feedback de {nome}')
+                    with open('feedback.txt','r',encoding='utf8') as fb:
+                        print(fb.read())
+                    proceed = input('Pressione enter para continuar...')
+                    w_goals = False
+                elif escolha_perfil == 0:
+                    w_goals = False
+                    w_profile = False
 
     elif escolha_menu == 1:
         
@@ -149,7 +192,7 @@ while w_main:
                 limpa()
                 w_qs = True
                 while w_qs:
-                    with open('QuemSomos.txt','r',encoding='utf8') as quemsomos:
+                    with open('quem_somos.txt','r',encoding='utf8') as quemsomos:
                         print(quemsomos.read())
                     proceed = input('Pressione enter para continuar.')
                     w_qs = False
@@ -233,19 +276,19 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         if mes == 'Logado':
                             limpa()
                             print('Pix ou Cartão aqui')
-                            proceed = input('Aperte enter para continuar.')
+                            proceed = input('Pressione enter para continuar.')
                             w_freq = False
                         if mes == 'login':
                             limpa()
                             print('Pix ou Cartão aqui')
-                            proceed = input('Aperte enter para continuar.')
+                            proceed = input('Pressione enter para continuar.')
                             w_freq = False
                             logged = True
                             pass
                         elif mes == 'cadastrado':
                             limpa()
                             print('Pix ou Cartão aqui')
-                            proceed = input('Aperte enter para continuar.')
+                            proceed = input('Pressione enter para continuar.')
                             w_freq = False
                             logged = True
                             pass
