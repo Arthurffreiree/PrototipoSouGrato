@@ -1,177 +1,271 @@
 import csv
-from glob import glob
 import os
 
-global wMain
+global w_main
 global logged
-global wEscolha2
-global wMenu
-global wReg
-global wVolunt
-global wDonate
-global wFreq
-global wLogDonate
+global w_escolha_2
+global w_menu
+global w_reg
+global w_espec
+global w_donate
+global w_freq
+global w_log_donate
+global w_cadastro_mod
+global w_cadastro_main
+global w_vol
+global w_qs
+global w_mes
 
-wMain = True
+w_main = True
 logged = False
-wEscolha2 = True
-wMenu = True
-wReg = True
-wVolunt = True
-wDonate = True
-wFreq = True
-wLogDonate = True
+w_escolha_2 = True
+w_menu = True
+w_reg = True
+w_espec = True
+w_donate = True
+w_freq = True
+w_log_donate = True
+w_login = True
+w_vol = True
+w_qs = True
+w_mes = True
 
-nomeDic = {}
-dadosCadastro = []
+contas_adm = {}
+dados_cadastro = []
 cadastro = []
+dados_ronda = []
+dados_espec = []
+emails = []
+senhas = []
+cpfs = []
+nomes = []
 
 def limpa():
     os.system('cls')
 
-def escreverCadastro(nomeArquivo, nomeLista):
-    with open(nomeArquivo, 'a') as adm:
-        esc = ','.join(nomeLista)
+def escreverDados(nome_arquivo, nome_lista):
+    with open(nome_arquivo, 'a') as adm:
+        esc = ','.join(nome_lista)
         adm.writelines(esc + '\n')
 
-def Login():
+def login():
     limpa()
-    user = input('Digite o email de Login: ')
+    global user
+    user = input('Digite o email de login: ')
     senha = input('Digite sua senha: ')
-    with open('DadosLogin.csv','r') as adm:
-        leitor = csv.reader(adm)
-        nomeDic = {l[0]:l[1] for l in leitor}
-        if user not in nomeDic or nomeDic[user] != senha:
-            return False               
-        else:
-            return True
+    with open('DadosContas.csv','r') as adm:
+        leitor = csv.DictReader(adm)
+        contas_adm = {l['colEmail']:l['colSenha'] for l in leitor}
+    if user not in contas_adm:
+        return 'cadastro'
+    elif user in contas_adm and contas_adm[user]!= senha:
+        return 'senhaIncorreta'               
+    elif user in contas_adm and contas_adm[user] == senha:
+        return True 
+    else:
+        print('Não foi possível fazer o login') 
+        pass
 
 def Cadastro():
-    global user
-    
     wSenha = True
-    wCadastro = True
-
-    while wCadastro:
+    w_cadastro_mod = True
+    existence()
+    while w_cadastro_mod:
         limpa()
         user = input('Digite seu email de Login: ')
-        nome = input('Digite seu nome: ')
-        cpf = input('Digite seu cpf: ')
-        with open('DadosLogin.csv','r') as adm:
-            leitor = csv.reader(adm)
-            nomeDic = {l[0]:l[1] for l in leitor}
-            if user in nomeDic:
-                print('Usuário já cadastrado!')
-                escolha = int(input('[1] - Tentar novamente\n[0] - Voltar\n'))
-                if escolha == 0:
-                    wCadastro = False
-            else:
+        if user not in emails:        
+            nome = input('Digite seu nome: ')
+            cpf = input('Digite seu cpf: ')
+            if cpf not in cpfs:
+                dados_cadastro.append(user)
+                dados_cadastro.append(nome)
+                dados_cadastro.append(cpf)
                 while wSenha:
-                    senha = input('Digite sua senha: ')
-                    confsenha = input('Confirme sua senha: ')
-                    if senha == confsenha:
-                        cadastro.append(user)
-                        cadastro.append(senha)
-                        dadosCadastro.append(user)
-                        dadosCadastro.append(senha)
-                        dadosCadastro.append(nome)
-                        dadosCadastro.append(cpf)
-                        escreverCadastro('DadosLogin.csv', cadastro)
-                        escreverCadastro('DadosCadastro.csv',dadosCadastro)
+                    if passConfirm(dados_cadastro) == True: 
+                        limpa()
+                        escreverDados('DadosContas.csv',dados_cadastro)
                         wSenha = False
-                        return True
-                    else:
-                        print('As senhas não coincidem.')
-                        escolha = int(input('[1] - Tentar novamente\n[0] - Voltar\n'))
-                        if escolha == 0:
-                            wSenha = False
-                            wCadastro = False
-
-def TextoSG():
-    limpa()
-    print('''O Sou Grato é uma Iniciativa social sem fins lucrativos que surgiu em 2018 com o propósito de 
-ajudar pessoas em situação de rua e famílias em vulnerabilidade. Atualmente, as ações do grupo são realizadas 
-semanalmente no município de Recife-PE, no qual são distribuídos alimentos, água, ração para cães e gatos, 
-kits de higiene pessoal, roupas e cobertores. Outros tipos de ações também são realizadas em parceria com outras 
-iniciativas e instituições sociais para assistir comunidades em situações emergenciais.''')
-#Tentar colocar isso em um TXT
-    proceed = input("\nPressione enter para continuar...")
-    limpa()
-
-def Volunt():
-    wVolunt = True
-    limpa()
-    while wVolunt:
-        wReg = True
-        print("Qual tipo de voluntário você deseja ser?")
-        vol = int(input('''[1] - Voluntário de Ronda\n[2] - Voluntário Especializado\n[0] - Voltar\n
-Atenção: Ao se inscrever como voluntário, você concorda em disponibilizar
-seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A \x1B[75D'''))
+                        return True  
+                    elif passConfirm(dados_cadastro) == False:
+                        wSenha = False
+                        w_cadastro_mod = False
+                        return 'senhaNaoCoincide'
+            else:
+                w_cadastro_mod = False
+                return 'cpfUsado'
+        else:
+            w_cadastro_mod = False
+            return 'jaCadastrado'
+def volunt_reg():
+        w_reg = True
+        wSenha = True
+        global user
+        global senha
+        global logged
         limpa()
-        while wReg:
-            if vol == 0:
+        existence()
+        while w_reg:
+            if logged == True:
+                cpf = cpfs[emails.index(user)]
+                senha = senhas[emails.index(user)]
+                nome = nomes[emails.index(user)]
+                dados_ronda.append(input('Insira seu número de telefone: '))
+                dados_ronda.append(input('Insira o nome do seu contato de emergência: '))
+                dados_ronda.append(input('Insira o número do seu contato de emergência: '))
+                dados_ronda.insert(0,user)
+                dados_ronda.insert(1,nome)
+                dados_ronda.insert(2,cpf)
+                dados_ronda.insert(3,senha)
+                escreverDados('DadosSGRonda.csv',dados_ronda)
+                w_reg = False
+                return True
+            if logged == False:
+                log = int(input('[1] - Login [2] - Cadastro\n'))
+                if log == 1:
+                    limpa()
+                    user = input('Insira o email para login: ')
+                    if user not in emails:
+                        print('Usuário não encontrado.')
+                        proceed = input('Pressione enter para continuar.')
+                        return 'usuario_nao_encontrado'
+                    else:
+                        senha = input('Insira a senha: ')
+                        if senha!=senhas[emails.index(user)]:
+                            print('Senha invalida.')
+                            proceed = input('Pressione enter para continuar.')
+                            return 'senhaNaoCoincide'
+                        else: 
+                            logged = True
+                            pass
+                        
+                else:
+                    user = input('Insira o email para login: ')
+                    if user in emails:                    
+                        return 'email_usado'
+                    cpf = input('Insira seu CPF: ')
+                    if cpf in cpfs:
+                        return 'cpf_usado'
+                    else:
+                        nome = input('Insira seu nome: ')
+                        while wSenha:
+                            if passConfirm(dados_ronda) == True: 
+                                limpa()
+                                senha = senha
+                                dados_ronda.append(input('Insira seu número de telefone: '))
+                                dados_ronda.append(input('Insira o nome do seu contato de emergência: '))
+                                dados_ronda.append(input('Insira o número do seu contato de emergência: '))
+                                dados_ronda.insert(0, user)
+                                dados_ronda.insert(1, nome)
+                                escreverDados('DadosSGRonda.csv', dados_ronda)
+                                dados_cadastro.insert(0,user)
+                                dados_cadastro.insert(1,nome)
+                                dados_cadastro.insert(2,cpf)
+                                dados_cadastro.insert(3,senha)
+                                escreverDados('DadosContas.csv', dados_cadastro)
+                                w_reg = False
+                                logged = True
+                                wSenha = False
+                                return True  
+                            elif passConfirm(dados_ronda) == False:
+                                wSenha = False
+                                w_reg = False
+                                return 'senhaNaoCoincide'
+                            
+                    
+def volunt_espec():
+    w_espec = True
+    global user
+    global senha
+    limpa()
+    existence()
+    while w_espec:
+        if logged == True:
+            cpf = cpfs[emails.index(user)]
+            senha = senhas[emails.index(user)]
+            nome = nomes[emails.index(user)]
+            dados_espec.append(input('Insira seu número de telefone: '))
+            dados_espec.append(input('Insira o seu grau de escolaridade: '))
+            dados_espec.append(input('Insira sua área de interesse: '))
+            dados_espec.append(input('Alguma proposta para a organização?\n'))
+            dados_espec.insert(0,user)
+            dados_espec.insert(1,nome)
+            dados_espec.insert(2,cpf)
+            dados_espec.insert(3,senha)
+            escreverDados('DadosSGEspec.csv',dados_espec)
+            w_espec = False
+            return True
+        if logged == False:
+            log = int(input('[1] - Login [2] - Cadastro\n'))
+            if log == 1:
                 limpa()
-                wReg = False
-                wVolunt = False
-            elif vol == 1:
-                dadosRonda = []
-                dadosRonda.append(input("Digite seu nome: "))
-                dadosRonda.append(input("Digite seu email: "))
-                dadosRonda.append(input("Digite o seu número de telefone: "))
-                dadosRonda.append(input("Digite o nome do seu contato de emergência: "))
-                dadosRonda.append(input("Digite o número de telefone do seu contato de emergência: "))
-                limpa()
-                proceed = input("Pressione enter para continuar...")
-                escreverCadastro('DadosSGRonda.csv', dadosRonda)
-                limpa()
-                wVolunt = False
-                wReg = False
-                wMenu = False
-            elif vol == 2:
-                dadosEspec = []
-                dadosEspec.append(input("Digite seu nome: "))
-                dadosEspec.append(input("Digite seu email: "))
-                dadosEspec.append(input("Digite o seu número de telefone: "))
-                limpa()
-                dadosEspec.append(input("Insira o seu grau de escolaridade: "))
-                dadosEspec.append(input("Insira sua área de interesse: "))
-                dadosEspec.append(input("Alguma proposta?\n"))
-                limpa()
-                proceed = input("Pressione enter para continuar...")
-                escreverCadastro('DadosSGEspec.csv', dadosEspec)
-                limpa()
-                wVolunt = False
-                wReg = False
-                wMenu = False
-
+                user = input('Insira o email para login: ')
+                if user not in emails:
+                    print('Usuário não encontrado.')
+                    proceed = input('Pressione enter para continuar.')
+                    return 'usuario_nao_encontrado'
+                else:
+                    senha = input('Insira a senha: ')
+                    if senha!=senhas[emails.index(user)]:
+                        print('Senha invalida.')
+                        proceed = input('Pressione enter para continuar.')
+                        return 'senhaNaoCoincide'
+                    else: 
+                        logged = True
+                        pass
+            else:
+                nome = input('Insira seu nome: ')
+                while wSenha:
+                    if passConfirm(dados_espec) == True: 
+                        limpa()
+                        senha = senha
+                        dados_espec.append(input('Insira seu número de telefone: '))
+                        dados_espec.append(input('Insira o seu grau de escolaridade: '))
+                        dados_espec.append(input('Insira sua área de interesse: '))
+                        dados_espec.append(input('Alguma proposta para a organização?\n'))
+                        dados_espec.insert(0, user)
+                        dados_espec.insert(1, nome)
+                        escreverDados('DadosSGEspec.csv', dados_espec)
+                        dados_cadastro.insert(0,user)
+                        dados_cadastro.insert(1,nome)
+                        dados_cadastro.insert(2,cpf)
+                        dados_cadastro.insert(3,senha)
+                        escreverDados('DadosContas.csv', dados_cadastro)
+                        w_espec = False
+                        logged = True
+                        wSenha = False
+                        return True  
+                    elif passConfirm(dados_espec) == False:
+                        wSenha = False
+                        w_espec = False
+                        return 'senhaNaoCoincide'
 def DonateNotLogged():
-    wDonate = True
-    while wDonate:
+    w_donate = True
+    while w_donate:
         limpa()
         print("Com que frequência você deseja doar?")
         freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
-        wFreq = True
-        while wFreq:
+        w_freq = True
+        while w_freq:
             if freqDoacao == 0:
                 limpa()
-                wFreq = False
-                wDonate = False
+                w_freq = False
+                w_donate = False
             elif freqDoacao == 1:
                 limpa()
-                wLogDonate = True
-                while wLogDonate:
+                w_log_donate = True
+                while w_log_donate:
                     escolha_login = int(input('[1] - Login \t [2] - Cadastrar-se \t [0] - Voltar\n'))
                     if escolha_login == 0:
                         limpa()
-                        wFreq = False    
-                        wLogDonate = False
+                        w_freq = False    
+                        w_log_donate = False
                     elif escolha_login == 1:
-                        if Login() == True:
+                        if login() == True:
                             limpa()
                             print('Pix ou Cartão aqui...')
                             proceed = input('\nPressione enter para continuar...')
-                            wLogDonate = False
-                            wFreq = False
+                            w_log_donate = False
+                            w_freq = False
                             return True
                         else:
                             limpa()
@@ -186,8 +280,8 @@ def DonateNotLogged():
                             limpa()
                             print('Pix ou Cartão aqui...')
                             proceed = input('\nPressione enter para continuar...')
-                            wLogDonate = False
-                            wFreq = False
+                            w_log_donate = False
+                            w_freq = False
                             return True
                         else:
                             limpa()
@@ -200,29 +294,79 @@ def DonateNotLogged():
                 limpa()
                 print("pix ou cartão aqui")
                 proceed = input("\nPressione enter para continuar...")
-                wFreq = False
+                w_freq = False
                 limpa()
 
 def DonateLogged():
-    wDonate = True
-    while wDonate:
+    w_donate = True
+    while w_donate:
         limpa()
         print("Com que frequência você deseja doar?")
         freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
-        wFreq = True
-        while wFreq:
+        w_freq = True
+        while w_freq:
             if freqDoacao == 0:
                 limpa()
-                wFreq = False
-                wDonate = False
+                w_freq = False
+                w_donate = False
             elif freqDoacao == 1:
                 limpa()
                 print('Pix ou Cartão aqui...')
                 proceed = input('\nPressione enter para continuar...')
-                wFreq = False
+                w_freq = False
             elif freqDoacao == 2:
                 limpa()
                 print("pix ou cartão aqui")
                 proceed = input("\nPressione enter para continuar...")
-                wFreq = False
+                w_freq = False
                 limpa()
+
+def passConfirm(lista):
+    global senha
+    senha = input('Digite sua senha:')
+    confsenha = input('Confirme a senha: ')
+    if senha == confsenha:
+        lista.insert(3, senha)            
+        return True  
+    else:
+        limpa()
+        return False
+
+def existence():
+    with open('DadosContas.csv') as contas:
+        leitor = csv.DictReader(contas)
+        for c in leitor:
+            emails.append(c['colEmail'])
+            senhas.append(c['colSenha'])
+            nomes.append(c['colNome'])
+            cpfs.append(c['colCpf'])
+
+def donate_mes():
+    global logged
+    w_mes = True
+    while w_mes:
+        # nao ta tomando como logado
+        if logged == True:
+            return 'Logado'
+        if logged == False:
+            log = int(input('[1] - Login [2] - Cadastro\n'))
+            if log == 1:
+                if login() == True:
+                    return 'login'
+                else:
+                    return login()
+            elif log == 2:
+                if Cadastro() == True:
+                    return 'cadastrado'
+                else:
+                    return Cadastro()
+#     user = input('Insira o email para login: ')
+#     if user in emails:
+#         return 'emailsUsado'
+#     else:
+
+#         cpf = input('Insira seu CPF: ')
+#         if cpf in cpfs:
+#            return 'cpfUsado'
+#         else: return True
+            
