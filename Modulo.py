@@ -179,6 +179,7 @@ def volunt_reg():
                     
 def volunt_espec():
     global nome
+    global logged
     w_espec = True
     global user
     global senha
