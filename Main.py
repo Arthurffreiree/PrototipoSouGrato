@@ -90,8 +90,7 @@ while w_main:
                             logged = False
                             w_login = False
                             w_escolha_2 = False
-                            pass
-                        
+                            pass       
 
             elif escolha_login == 2:
                 limpa()
@@ -217,6 +216,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
     Você também pode nos ajudar por meio de doações.''')
                             proceed = input('Pressione enter para continuar.')
                             w_vol = False
+                            logged = True
                         elif reg=='email_usado':
                             print('Email já cadastrado.')
                             procced = input('''[1] - Tentar Novamente [2] - Voltar''')
@@ -224,7 +224,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                 w_vol = False
                         elif reg == 'cpf_usado':
                             print('CPF já cadastrado.')
-                            procced = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            proceed = input('''[1] - Tentar Novamente [2] - Voltar''')
                             if proceed == '2':
                                 w_vol = False
                         elif reg == 'senhaNaoCoincide':
@@ -244,6 +244,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
     Você também pode nos ajudar por meio de doações.''')
                             proceed = input('Pressione enter para continuar.')
                             w_vol = False
+                            logged = True
                         elif espec=='email_usado':
                             print('Email já cadastrado.')
                             procced = input('''[1] - Tentar Novamente [2] - Voltar''')

@@ -18,8 +18,8 @@ global w_mes
 global w_goals
 global nome
 
-w_main = True
 logged = False
+w_main = True
 w_escolha_2 = True
 w_menu = True
 w_reg = True
@@ -100,13 +100,13 @@ def Cadastro():
         else:
             w_cadastro_mod = False
             return 'jaCadastrado'
+
 def volunt_reg():
     global nome
     w_reg = True
     wSenha = True
     global user
     global senha
-    global logged
     limpa()
     existence()
     while w_reg:
@@ -201,7 +201,7 @@ def volunt_espec():
             escreverDados('DadosSGEspec.csv',dados_espec)
             w_espec = False
             return True
-        if logged == False:
+        elif logged == False:
             log = int(input('[1] - Login [2] - Cadastro\n'))
             if log == 1:
                 limpa()
