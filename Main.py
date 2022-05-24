@@ -194,7 +194,7 @@ Semana da Ronda do dia 15/06/22
                 while w_qs:
                     with open('quem_somos.txt','r',encoding='utf8') as quemsomos:
                         print(quemsomos.read())
-                    proceed = input('Pressione enter para continuar.')
+                    proceed = input('\nPressione enter para continuar...')
                     w_qs = False
                     
 
@@ -343,3 +343,8 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                 logged = False
                                 w_freq = False
                                 pass
+                    elif freqDoacao == 2:
+                        limpa()
+                        print('Pix ou Cartão aqui')
+                        proceed = input('Pressione enter para continuar.')
+                        w_freq = False
