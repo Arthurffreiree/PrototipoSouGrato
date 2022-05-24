@@ -210,7 +210,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         limpa()
                         
                     if vol == 1:
-                        reg = volunt_reg()
+                        reg = volunt_reg(logged)
                         if reg == True:
                             print('''Agradecemos por você se cadastrar como voluntárix!
     Você também pode nos ajudar por meio de doações.''')
@@ -238,7 +238,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             if proceed == '2':
                                 w_vol = False                      
                     elif vol == 2:
-                        espec = volunt_espec()
+                        espec = volunt_espec(logged)
                         if espec == True:
                             print('''Agradecemos por você se cadastrar como voluntárix!
     Você também pode nos ajudar por meio de doações.''')

@@ -101,7 +101,7 @@ def Cadastro():
             w_cadastro_mod = False
             return 'jaCadastrado'
 
-def volunt_reg():
+def volunt_reg(logged):
     global nome
     w_reg = True
     wSenha = True
@@ -177,9 +177,8 @@ def volunt_reg():
                             return 'senhaNaoCoincide'
                         
                     
-def volunt_espec():
+def volunt_espec(logged):
     global nome
-    global logged
     w_espec = True
     global user
     global senha
