@@ -208,7 +208,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                     if vol == 0:
                         w_vol = False
                         limpa()
-
+                        
                     if vol == 1:
                         reg = volunt_reg()
                         if reg == True:
