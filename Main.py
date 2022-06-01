@@ -1,25 +1,34 @@
 from Modulo import *
 
+#Tela principal & Loop principal
 while w_main:
-        
+    
+    #Não logado
     if logged == False:
         limpa()
         escolha_menu = int(input('[1] - Acessar o menu \t [2] - Login/Cadastro \t [3] - Sair \n'))
         pass
+
+    #Logado
     if logged == True:
         limpa()
         escolha_menu = int(input('[1] - Acessar o menu \t [2] - Acessar perfil \t [3] - Sair \t [4] - Logout \n'))
         pass
+
+    #Logout
     if escolha_menu == 4:
         limpa()
         logged = False
         pass 
+    
+    #Fim do programa
     elif escolha_menu == 3:
         limpa()
         print('Obrigadx por utilizar o app Sou Grato!')
         w_main = False
         pass
-
+    
+    #Tela de Login/Cadastro do usuário não logado
     elif escolha_menu == 2 and logged == False:
         
         w_escolha_2 = True
@@ -30,7 +39,7 @@ while w_main:
             
             if escolha_login == 0:
                 w_escolha_2 = False
-            
+            #Login
             elif escolha_login == 1:
                 w_login = True
                 while w_login:
@@ -41,6 +50,7 @@ while w_main:
                         logged = True
                         w_login = False
                         w_escolha_2 = False
+                    #Tratamento de exceções
                     elif log == 'cadastro':
                         limpa()
                         print('Email não encontrado.')
@@ -91,10 +101,11 @@ while w_main:
                             w_login = False
                             w_escolha_2 = False
                             pass       
-
+            #Cadastro
             elif escolha_login == 2:
                 limpa()
                 cadastro = Cadastro()
+                #Tratamento de exceções
                 if cadastro == 'jaCadastrado':
                     limpa()
                     print('Email já cadastrado!')
@@ -126,48 +137,56 @@ while w_main:
                     w_login = False
                     w_escolha_2 = False
                     pass
-
+    #Perfil do usuário já logado
     elif escolha_menu == 2 and logged == True:
         limpa()
-#Tentei botar o nome mas n consegui
         w_profile = True
+
         while w_profile:
             limpa()
-            # print(f'Perfil de {nome}')
+
+            #Menu do perfil
             escolha_perfil = int(input('''[1] - Metas 
 [2] - Histórico de doações 
 [3] - Histórico de Participações
 [4] - Feedback
 [0] - Voltar\n'''))
             w_goals = True
+
             while w_goals:
+                #Metas da semana
                 if escolha_perfil == 1:
+
                     limpa()
-                    # print(f'Metas de {nome}')
                     print('''As metas da semana estão perto de serem alcançadas!
 Semana da Ronda do dia 15/06/22
     ███████████████████████████---------|76% Completa''')
                     proceed = input('Pressione enter para voltar...')
                     w_goals = False
                     pass
+
+                #Histórico das doações
                 elif escolha_perfil == 2:
+
                     limpa()
-                    # print(f'Historico de doações de {nome}')
                     with open('donate_history.txt','r',encoding='utf8') as dh:
                         print(dh.read())     
                     proceed = input("Pressione enter para continuar...")
                     w_goals = False
                     pass
+                
+                #Histórico das participações
                 elif escolha_perfil == 3:
+
                     limpa()
-                    # print(f'Histórico de participação de {nome}')
                     with open('part_history.txt','r',encoding='utf8') as ph:
                         print(ph.read())
                     proceed = input('Pressione enter para continuar.')
                     w_goals = False
+
+                #Feedback do usuário
                 elif escolha_perfil == 4:
                     limpa()
-                    # print(f'Feedback de {nome}')
                     with open('feedback.txt','r',encoding='utf8') as fb:
                         print(fb.read())
                     proceed = input('Pressione enter para continuar...')
@@ -175,18 +194,21 @@ Semana da Ronda do dia 15/06/22
                 elif escolha_perfil == 0:
                     w_goals = False
                     w_profile = False
-
+    
+    #Menu
     elif escolha_menu == 1:
-        
+
         w_menu = True    
         while w_menu:
             limpa()
             escolha_menu = int(input('[0] - Voltar \n[1] - Quem somos \n[2] - Seja voluntário \n[3] - Seja doador \n'))
             
+            #Voltar para a tela inicial
             if escolha_menu == 0:
                 w_menu = False
                 limpa()
-
+            
+            #Descrição da organização
             elif escolha_menu == 1:
                 limpa()
                 w_qs = True
@@ -196,7 +218,7 @@ Semana da Ronda do dia 15/06/22
                     proceed = input('\nPressione enter para continuar...')
                     w_qs = False
                     
-
+            #Inscrição do voluntário
             elif escolha_menu == 2:
                 limpa()
                 print("Qual tipo de voluntário você deseja ser?")
@@ -205,10 +227,13 @@ Atenção: Ao se inscrever como voluntário, você concorda em disponibilizar
 seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A \x1B[75D'''))
                 w_vol = True
                 while w_vol:
+
+                    #Voltar para o menu
                     if vol == 0:
                         w_vol = False
                         limpa()
-                        
+
+                    #Login do voluntário de ronda   
                     if vol == 1:
                         reg = volunt_reg(logged)
                         if reg == True:
@@ -217,6 +242,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             proceed = input('Pressione enter para continuar.')
                             w_vol = False
                             logged = True
+                        #Tratamento de exceções
                         elif reg=='email_usado':
                             print('Email já cadastrado.')
                             procced = input('''[1] - Tentar Novamente [2] - Voltar''')
@@ -236,7 +262,9 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             print('Usuário não encontrado.')
                             proceed = input('[1] - Tentar Novamente [2] - Voltar')
                             if proceed == '2':
-                                w_vol = False                      
+                                w_vol = False   
+
+                    #Inscrição do voluntário especializado                   
                     elif vol == 2:
                         espec = volunt_espec(logged)
                         if espec == True:
@@ -245,6 +273,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             proceed = input('Pressione enter para continuar.')
                             w_vol = False
                             logged = True
+                        #Tratamento de exceções
                         elif espec=='email_usado':
                             print('Email já cadastrado.')
                             procced = input('''[1] - Tentar Novamente [2] - Voltar''')
@@ -265,7 +294,8 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                             proceed = input('[1] - Tentar Novamente [2] - Voltar')
                             if proceed == '2':
                                 w_vol = False 
-                        
+
+            #Tela de doação            
             elif escolha_menu == 3:
                 limpa()
                 print("Com que frequência você deseja doar?")
@@ -278,11 +308,13 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                     elif freqDoacao == 1:
                         limpa()
                         mes = donate_mes()
+                        #Login
                         if mes == 'Logado':
                             limpa()
                             print('Pix ou Cartão aqui')
                             proceed = input('Pressione enter para continuar.')
                             w_freq = False
+                        #Tratamento de exceções
                         if mes == 'login':
                             limpa()
                             print('Pix ou Cartão aqui')
@@ -306,6 +338,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                                 logged = False
                                 pass
                             else:
+                                #Cadastro
                                 cadastro = Cadastro()
                                 if cadastro == 'jaCadastrado':
                                     limpa()
