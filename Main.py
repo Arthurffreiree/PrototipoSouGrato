@@ -245,22 +245,22 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         #Tratamento de exceções
                         elif reg=='email_usado':
                             print('Email já cadastrado.')
-                            procced = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            procced = input('''[1] - Tentar Novamente [2] - Voltar\n''')
                             if proceed == '2':
                                 w_vol = False
                         elif reg == 'cpf_usado':
                             print('CPF já cadastrado.')
-                            proceed = input('''[1] - Tentar Novamente [2] - Voltar''')
+                            proceed = input('''[1] - Tentar Novamente [2] - Voltar\n''')
                             if proceed == '2':
                                 w_vol = False
                         elif reg == 'senhaNaoCoincide':
                             print('Senha inválida.')
-                            proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                            proceed = input('[1] - Tentar Novamente [2] - Voltar\n')
                             if proceed == '2':
                                 w_vol = False
                         elif reg == 'usuario_nao_encontrado':
                             print('Usuário não encontrado.')
-                            proceed = input('[1] - Tentar Novamente [2] - Voltar')
+                            proceed = input('[1] - Tentar Novamente [2] - Voltar\n')
                             if proceed == '2':
                                 w_vol = False   
 
@@ -269,7 +269,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         espec = volunt_espec(logged)
                         if espec == True:
                             print('''Agradecemos por você se cadastrar como voluntárix!
-    Você também pode nos ajudar por meio de doações.''')
+Você também pode nos ajudar por meio de doações.''')
                             proceed = input('Pressione enter para continuar.')
                             w_vol = False
                             logged = True
