@@ -20,6 +20,8 @@ global w_mes
 global w_goals
 global nome
 global user
+global cpf
+global senha
 
 #Valores das variáveis booleanas   
 logged = False
@@ -84,7 +86,9 @@ def login():
 #Cadastro do usuário
 def Cadastro():
     global nome
-
+    global user
+    global senha
+    global cpf
     w_senha = True
     w_cadastro_mod = True
 
@@ -210,7 +214,7 @@ def volunt_espec(logged):
     global nome
     global user
     global senha
-
+    global cpf
     w_senha = True
     w_espec = True
 
@@ -262,7 +266,14 @@ def volunt_espec(logged):
                         pass
             else:
                 limpa()
-                nome = input('Insira seu nome: ')
+                user = input('Insira o email para login: ')
+                if user in emails:                    
+                    return 'email_usado'
+                cpf = input('Insira seu CPF: ')
+                if cpf in cpfs:
+                    return 'cpf_usado'
+                else:
+                    nome = input('Insira seu nome: ')
                 while w_senha:
                     if pass_confirm(dados_espec) == True: 
                         limpa()
@@ -287,9 +298,11 @@ def volunt_espec(logged):
                         w_senha = False
                         w_espec = False
                         return 'senhaNaoCoincide'
+
 #Confirmação da senha do cadastro
 def pass_confirm(lista):
     global senha
+    global user
     senha = input('Digite sua senha:')
     confsenha = input('Confirme a senha: ')
     if senha == confsenha:
