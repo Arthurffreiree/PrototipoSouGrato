@@ -19,6 +19,7 @@ global w_qs
 global w_mes
 global w_goals
 global nome
+global user
 
 #Valores das variáveis booleanas   
 logged = False
@@ -210,6 +211,7 @@ def volunt_espec(logged):
     global user
     global senha
 
+    w_senha = True
     w_espec = True
 
     limpa()
@@ -244,12 +246,14 @@ def volunt_espec(logged):
                 user = input('Insira o email para login: ')
 
                 if user not in emails:
+                    limpa()
                     print('Usuário não encontrado.')
                     proceed = input('Pressione enter para continuar.')
                     return 'usuario_nao_encontrado'
                 else:
                     senha = input('Insira a senha: ')
                     if senha!=senhas[emails.index(user)]:
+                        limpa()
                         print('Senha invalida.')
                         proceed = input('Pressione enter para continuar.')
                         return 'senhaNaoCoincide'
@@ -257,6 +261,7 @@ def volunt_espec(logged):
                         logged = True
                         pass
             else:
+                limpa()
                 nome = input('Insira seu nome: ')
                 while w_senha:
                     if pass_confirm(dados_espec) == True: 
@@ -266,8 +271,8 @@ def volunt_espec(logged):
                         dados_espec.append(input('Insira o seu grau de escolaridade: '))
                         dados_espec.append(input('Insira sua área de interesse: '))
                         dados_espec.append(input('Alguma proposta para a organização?\n'))
-                        dados_espec.insert(0, user)
-                        dados_espec.insert(1, nome)
+                        dados_espec.insert(0,user)
+                        dados_espec.insert(1,nome)
                         escrever_dados('DadosSGEspec.csv', dados_espec)
                         dados_cadastro.insert(0,user)
                         dados_cadastro.insert(1,nome)
