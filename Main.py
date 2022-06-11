@@ -245,7 +245,7 @@ seu nome, email e cpf para a criação de uma conta no sistema Sou Grato \x1B[2A
                         #Tratamento de exceções
                         elif reg=='email_usado':
                             print('Email já cadastrado.')
-                            procced = input('''[1] - Tentar Novamente [2] - Voltar\n''')
+                            proceed = input('''[1] - Tentar Novamente [2] - Voltar\n''')
                             if proceed == '2':
                                 w_vol = False
                         elif reg == 'cpf_usado':
