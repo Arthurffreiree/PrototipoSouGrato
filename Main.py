@@ -299,7 +299,7 @@ Você também pode nos ajudar por meio de doações.''')
             elif escolha_menu == 3:
                 limpa()
                 print("Com que frequência você deseja doar?")
-                freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[0] - Voltar\n"))
+                freqDoacao = int(input("[1] - Mensalmente\n[2] - Doação única\n[3] - Doação de feira\n[0] - Voltar\n"))
                 w_freq = True
                 while w_freq:
                     if freqDoacao == 0:
@@ -381,4 +381,22 @@ Você também pode nos ajudar por meio de doações.''')
                         limpa()
                         print('Pix ou Cartão aqui')
                         proceed = input('Pressione enter para continuar.')
+                        w_freq = False
+                    elif freqDoacao == 3:
+                        limpa()
+                        print('''[1] - Queijo
+[2] - Mortadela: R$0,40/fatia
+[3] - Pão: R$0,20/unidade
+[4] - Maionese: R$0,50/porção
+[5] - Água: R$2,50/litro
+[6] - Escova de Dentes: R$3,70/unidade
+[7] - Pasta de Dentes: R$7,00/tubo
+[8] - Absorventes: R$3,66/8 unidades''')
+                        escolha = input("Código do item: ")
+                        limpa()
+                        qtd = int(input("Quantidade: "))
+                        #Versão lúdica para o pão
+                        limpa()
+                        print(f"Preço: R${round(qtd*0.2,2)} por {qtd} unidades de pão.\nPix ou cartão aqui.\n")
+                        proceed =  input("Pressione enter para continuar.")
                         w_freq = False
