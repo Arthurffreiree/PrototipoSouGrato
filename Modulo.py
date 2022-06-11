@@ -174,6 +174,7 @@ def volunt_reg(logged):
                         pass
                     
             else:
+                limpa()
                 user = input('Insira o email para login: ')
                 if user in emails:                    
                     return 'email_usado'
@@ -303,7 +304,7 @@ def volunt_espec(logged):
 def pass_confirm(lista):
     global senha
     global user
-    senha = input('Digite sua senha:')
+    senha = input('Digite sua senha: ')
     confsenha = input('Confirme a senha: ')
     if senha == confsenha:
         lista.insert(3, senha)            
